@@ -107,9 +107,7 @@ namespace meow.winforms
 
         private void btnHeavy_Click(object sender, EventArgs e)
         {
-            string input = txtHeavyWeight.Interaction.InputBox(
-       "Введите минимальный вес (кг):", "Поиск тяжёлых котов", "5");
-            if (double.TryParse(input, out double minWeight))
+            if (double.TryParse(txtHeavyWeight.Text, out double minWeight))
             {
                 var heavy = catLogic.GetCatsHeavierThan(minWeight);
                 string result = heavy.Count == 0
@@ -131,6 +129,7 @@ namespace meow.winforms
             txtAge.Text = "";
             txtWeight.Text = "";
             txtColor.Text = "";
+            txtHeavyWeight.Text = "";
         }
 
         private void Form1_Load(object sender, EventArgs e)
