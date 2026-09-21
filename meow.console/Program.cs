@@ -10,7 +10,7 @@ namespace meow.console
         static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-            SeedData(); // добавим котов для теста
+            SeedData(); 
 
             while (true)
             {
@@ -34,7 +34,7 @@ namespace meow.console
                     case "4": DeleteCat(); break;
                     case "5": GroupByBreed(); break;
                     case "6": HeavyCats(); break;
-                    case "0": return; // выход из Main
+                    case "0": return; 
                     default: Console.WriteLine("Неверный выбор!"); break;
                 }
                 Console.WriteLine("\nНажми Enter, чтобы продолжить...");

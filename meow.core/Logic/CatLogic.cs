@@ -8,7 +8,7 @@ namespace meow.core.Logic
     {
         private List<Cat> cats = new List<Cat>();
         private int nextId = 1;
-        // ============ 1. CREATE (Создание) ============
+ 
         public Cat AddCat(string name, string breed, int age, double weight, string color)
         {
             var cat = new Cat(nextId++, name, breed, age, weight, color);
@@ -16,22 +16,18 @@ namespace meow.core.Logic
             return cat;
         }
 
-        // ============ 2. READ (Чтение) ============
-        // Получить всех котов
+
         public List<Cat> GetAllCats()
         {
             return cats;
         }
 
-        // Получить одного кота по Id
         public Cat GetCatById(int id)
         {
             return cats.FirstOrDefault(c => c.Id == id);
         }
 
-        // ============ 3. UPDATE (Изменение) ============
-        public bool UpdateCat(int id, string newName, string newBreed,
-                              int newAge, double newWeight, string newColor)
+        public bool UpdateCat(int id, string newName, string newBreed, int newAge, double newWeight, string newColor)
         {
             var cat = GetCatById(id);
             if (cat == null) return false;
@@ -44,7 +40,7 @@ namespace meow.core.Logic
             return true;
         }
 
-        // ============ 4. DELETE (Удаление) ============
+
         public bool DeleteCat(int id)
         {
             var cat = GetCatById(id);
@@ -54,8 +50,7 @@ namespace meow.core.Logic
             return true;
         }
 
-        // ============ 5. БИЗНЕС-ФУНКЦИЯ №1 ============
-        // Группировка котов по породе
+
         public Dictionary<string, List<Cat>> GroupByBreed()
         {
             return cats
@@ -63,8 +58,7 @@ namespace meow.core.Logic
                 .ToDictionary(g => g.Key, g => g.ToList());
         }
 
-        // ============ 6. БИЗНЕС-ФУНКЦИЯ №2 ============
-        // Поиск котов тяжелее указанного веса
+
         public List<Cat> GetCatsHeavierThan(double minWeight)
         {
             return cats
@@ -73,8 +67,7 @@ namespace meow.core.Logic
                 .ToList();
         }
 
-        // Дополнительная полезная бизнес-функция (по желанию):
-        // Средний возраст всех котов
+
         public double GetAverageAge()
         {
             if (cats.Count == 0) return 0;
