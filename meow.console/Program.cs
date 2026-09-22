@@ -6,7 +6,10 @@ namespace meow.console
     class Program
     {
         static CatLogic catLogic = new CatLogic();
-
+        /// <summary>
+        /// Меню
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -41,7 +44,9 @@ namespace meow.console
                 Console.ReadLine();
             }
         }
-
+        /// <summary>
+        /// Добавление исходных котов
+        /// </summary>
         static void SeedData()
         {
             if (catLogic.GetAllCats().Count == 0)
@@ -51,14 +56,18 @@ namespace meow.console
                 catLogic.AddCat("Рыжик", "Дворовая", 2, 4.1, "Рыжий");
             }
         }
-
+        /// <summary>
+        /// показать всех
+        /// </summary>
         static void ShowAll()
         {
             var cats = catLogic.GetAllCats();
             if (cats.Count == 0) { Console.WriteLine("Котов нет."); return; }
             foreach (var c in cats) Console.WriteLine(c);
         }
-
+        /// <summary>
+        /// добавить кота
+        /// </summary>
         static void AddCat()
         {
             try
@@ -76,7 +85,9 @@ namespace meow.console
                 Console.WriteLine("Ошибка: возраст — целое, вес — число!");
             }
         }
-
+        /// <summary>
+        /// обновить кота
+        /// </summary>
         static void UpdateCat()
         {
             Console.Write("Id кота для обновления: ");
@@ -107,7 +118,9 @@ namespace meow.console
             catLogic.UpdateCat(id, name, breed, age, weight, color);
             Console.WriteLine("Обновлено!");
         }
-
+        /// <summary>
+        /// удалить кота
+        /// </summary>
         static void DeleteCat()
         {
             Console.Write("Id кота для удаления: ");
@@ -119,7 +132,9 @@ namespace meow.console
                     Console.WriteLine("Кот не найден!");
             }
         }
-
+        /// <summary>
+        /// группировка по породе
+        /// </summary>
         static void GroupByBreed()
         {
             var groups = catLogic.GroupByBreed();
@@ -129,7 +144,9 @@ namespace meow.console
                 foreach (var c in g.Value) Console.WriteLine("   " + c);
             }
         }
-
+        /// <summary>
+        /// поиск тяжелее n кг
+        /// </summary>
         static void HeavyCats()
         {
             Console.Write("Минимальный вес: ");

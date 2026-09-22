@@ -19,7 +19,11 @@ namespace meow.winforms
             InitializeComponent();
         }
         private CatLogic catLogic = new CatLogic();
-
+        /// <summary>
+        /// кнопка добавить
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
             try
@@ -39,7 +43,11 @@ namespace meow.winforms
                 MessageBox.Show("Возраст - целое число, вес — число с точкой (например, 6.7)");
             }
         }
-
+        /// <summary>
+        /// кнопка удалить
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow == null)
@@ -65,7 +73,11 @@ namespace meow.winforms
                 MessageBox.Show("Проверь формат ввода!");
             }
         }
-
+        /// <summary>
+        /// кнопка удалить
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow == null)
@@ -79,18 +91,30 @@ namespace meow.winforms
             RefreshGrid();
             ClearFields();
         }
-
+        /// <summary>
+        /// заглушка от клика по таблице
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
-
+        /// <summary>
+        /// кнопка показать все
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnShowAll_Click(object sender, EventArgs e)
         {
             RefreshGrid();
 
         }
-
+        /// <summary>
+        /// кнопка группировка по породе
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnGroup_Click(object sender, EventArgs e)
         {
             var groups = catLogic.GroupByBreed();
@@ -104,7 +128,11 @@ namespace meow.winforms
             }
             MessageBox.Show(result, "Группировка по породе");
         }
-
+        /// <summary>
+        /// кнопка тяжелее чем n кг
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnHeavy_Click(object sender, EventArgs e)
         {
             if (double.TryParse(txtHeavyWeight.Text, out double minWeight))
@@ -116,12 +144,17 @@ namespace meow.winforms
                 MessageBox.Show(result, "Тяжёлые коты");
             }
         }
+        /// <summary>
+        /// обновить таблицу
+        /// </summary>
         private void RefreshGrid()
         {
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = catLogic.GetAllCats();
         }
-
+        /// <summary>
+        /// очистить поля ввывода
+        /// </summary>
         private void ClearFields()
         {
             txtName.Text = "";
@@ -131,12 +164,19 @@ namespace meow.winforms
             txtColor.Text = "";
             txtHeavyWeight.Text = "";
         }
-
+        /// <summary>
+        /// загруска формы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
             SeedData();
             RefreshGrid();
         }
+        /// <summary>
+        /// добавление исходных котов
+        /// </summary>
         private void SeedData()
         {
             if (catLogic.GetAllCats().Count == 0)
