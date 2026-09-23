@@ -44,7 +44,7 @@ namespace meow.winforms
             }
         }
         /// <summary>
-        /// кнопка удалить
+        /// кнопка обновить
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -185,6 +185,11 @@ namespace meow.winforms
                 catLogic.AddCat("Мурка", "Персидская", 5, 3.8, "Белый");
                 catLogic.AddCat("Рыжик", "Дворовая", 2, 4.1, "Рыжий");
             }
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

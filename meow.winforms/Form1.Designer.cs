@@ -101,9 +101,9 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(51, 300);
+            this.btnAdd.Location = new System.Drawing.Point(21, 229);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(139, 23);
+            this.btnAdd.Size = new System.Drawing.Size(122, 30);
             this.btnAdd.TabIndex = 6;
             this.btnAdd.Text = "Добавить";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -111,9 +111,9 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(239, 300);
+            this.btnUpdate.Location = new System.Drawing.Point(149, 229);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(171, 23);
+            this.btnUpdate.Size = new System.Drawing.Size(122, 30);
             this.btnUpdate.TabIndex = 7;
             this.btnUpdate.Text = "Обновить";
             this.btnUpdate.UseVisualStyleBackColor = true;
@@ -161,9 +161,9 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(469, 300);
+            this.btnDelete.Location = new System.Drawing.Point(21, 264);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(139, 23);
+            this.btnDelete.Size = new System.Drawing.Size(122, 30);
             this.btnDelete.TabIndex = 13;
             this.btnDelete.Text = "Удалить";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -171,9 +171,9 @@
             // 
             // btnShowAll
             // 
-            this.btnShowAll.Location = new System.Drawing.Point(649, 300);
+            this.btnShowAll.Location = new System.Drawing.Point(149, 264);
             this.btnShowAll.Name = "btnShowAll";
-            this.btnShowAll.Size = new System.Drawing.Size(139, 23);
+            this.btnShowAll.Size = new System.Drawing.Size(122, 30);
             this.btnShowAll.TabIndex = 14;
             this.btnShowAll.Text = "Показать все";
             this.btnShowAll.UseVisualStyleBackColor = true;
@@ -181,9 +181,9 @@
             // 
             // btnGroup
             // 
-            this.btnGroup.Location = new System.Drawing.Point(167, 374);
+            this.btnGroup.Location = new System.Drawing.Point(54, 308);
             this.btnGroup.Name = "btnGroup";
-            this.btnGroup.Size = new System.Drawing.Size(200, 23);
+            this.btnGroup.Size = new System.Drawing.Size(172, 43);
             this.btnGroup.TabIndex = 15;
             this.btnGroup.Text = "Группировка по породе";
             this.btnGroup.UseVisualStyleBackColor = true;
@@ -191,9 +191,9 @@
             // 
             // btnHeavy
             // 
-            this.btnHeavy.Location = new System.Drawing.Point(469, 374);
+            this.btnHeavy.Location = new System.Drawing.Point(21, 384);
             this.btnHeavy.Name = "btnHeavy";
-            this.btnHeavy.Size = new System.Drawing.Size(139, 23);
+            this.btnHeavy.Size = new System.Drawing.Size(131, 34);
             this.btnHeavy.TabIndex = 16;
             this.btnHeavy.Text = "Тяжелее N кг";
             this.btnHeavy.UseVisualStyleBackColor = true;
@@ -206,13 +206,13 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(506, 282);
+            this.dataGridView1.Size = new System.Drawing.Size(506, 339);
             this.dataGridView1.TabIndex = 17;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // txtHeavyWeight
             // 
-            this.txtHeavyWeight.Location = new System.Drawing.Point(167, 185);
+            this.txtHeavyWeight.Location = new System.Drawing.Point(236, 393);
             this.txtHeavyWeight.Name = "txtHeavyWeight";
             this.txtHeavyWeight.Size = new System.Drawing.Size(100, 22);
             this.txtHeavyWeight.TabIndex = 18;
@@ -256,11 +256,12 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(51, 191);
+            this.label10.Location = new System.Drawing.Point(164, 393);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(66, 16);
             this.label10.TabIndex = 23;
             this.label10.Text = "Мин. вес:";
+            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // label11
             // 
