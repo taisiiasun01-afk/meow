@@ -117,12 +117,17 @@ namespace meow.console
 
             catLogic.UpdateCat(id, name, breed, age, weight, color);
             Console.WriteLine("Обновлено!");
+
+            Console.WriteLine("\n=== ТЕКУЩИЙ СПИСОК КОТОВ ===");
+            ShowAll();
         }
         /// <summary>
         /// удалить кота
         /// </summary>
         static void DeleteCat()
         {
+            Console.WriteLine("\n=== ТЕКУЩИЙ СПИСОК КОТОВ ===");
+            ShowAll();
             Console.Write("Id кота для удаления: ");
             if (int.TryParse(Console.ReadLine(), out int id))
             {
