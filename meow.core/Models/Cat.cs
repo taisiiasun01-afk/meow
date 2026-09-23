@@ -10,15 +10,7 @@
         public string Color { get; set; }
 
         public Cat() { }
-        /// <summary>
-        /// Сущность Кот
-        /// </summary>
-        /// <param name="id">номер</param>
-        /// <param name="name">кличка</param>
-        /// <param name="breed">порода</param>
-        /// <param name="age">возраст</param>
-        /// <param name="weight">вес</param>
-        /// <param name="color">окрас</param>
+
         public Cat(int id, string name, string breed, int age, double weight, string color)
         {
             Id = id;

@@ -92,15 +92,6 @@ namespace meow.winforms
             ClearFields();
         }
         /// <summary>
-        /// заглушка от клика по таблице
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-        /// <summary>
         /// кнопка показать все
         /// </summary>
         /// <param name="sender"></param>
@@ -187,10 +178,6 @@ namespace meow.winforms
             }
         }
 
-        private void label10_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 
 }

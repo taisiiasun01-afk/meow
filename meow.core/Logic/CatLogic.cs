@@ -50,7 +50,7 @@ namespace meow.core.Logic
         /// <param name="newAge">новый возраст</param>
         /// <param name="newWeight">новый вес</param>
         /// <param name="newColor">новый окрас</param>
-        /// <returns></returns>
+        /// <returns>бдлжопсмиолдрпмсолрбпьсачодлпр</returns>
         public bool UpdateCat(int id, string newName, string newBreed, int newAge, double newWeight, string newColor)
         {
             var cat = GetCatById(id);
@@ -68,7 +68,7 @@ namespace meow.core.Logic
         /// Удаление
         /// </summary>
         /// <param name="id">номер</param>
-        /// <returns></returns>
+        /// <returns>ьтимюб.ьтимьюбюи</returns>
         public bool DeleteCat(int id)
         {
             var cat = GetCatById(id);
