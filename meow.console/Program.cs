@@ -9,7 +9,7 @@ namespace meow.console
         /// <summary>
         /// Меню
         /// </summary>
-        /// <param name="args"></param>
+        /// <param name="args">аргументы командной строки</param>
         static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -40,7 +40,7 @@ namespace meow.console
                     case "0": return; 
                     default: Console.WriteLine("Неверный выбор!"); break;
                 }
-                Console.WriteLine("\nНажми Enter, чтобы продолжить...");
+                Console.WriteLine("Нажми чтобы продолжить");
                 Console.ReadLine();
             }
         }
@@ -62,7 +62,10 @@ namespace meow.console
         static void ShowAll()
         {
             var cats = catLogic.GetAllCats();
-            if (cats.Count == 0) { Console.WriteLine("Котов нет."); return; }
+            if (cats.Count == 0)
+            { 
+                Console.WriteLine("Котов нет."); return; 
+            }
             foreach (var c in cats) Console.WriteLine(c);
         }
         /// <summary>

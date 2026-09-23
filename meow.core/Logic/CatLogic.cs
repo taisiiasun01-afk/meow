@@ -16,7 +16,7 @@ namespace meow.core.Logic
         /// <param name="age">возраст</param>
         /// <param name="weight">вес</param>
         /// <param name="color">окрас</param>
-        /// <returns>код ошибки</returns>
+        /// <returns>кота, с автоматически присвоенным номером</returns>
         public Cat AddCat(string name, string breed, int age, double weight, string color)
         {
             var cat = new Cat(nextId++, name, breed, age, weight, color);
@@ -27,7 +27,7 @@ namespace meow.core.Logic
         /// <summary>
         /// получить всех котов
         /// </summary>
-        /// <returns></returns>
+        /// <returns>список котов</returns>
         public List<Cat> GetAllCats()
         {
             return cats;
@@ -36,7 +36,7 @@ namespace meow.core.Logic
         /// получить одного кота
         /// </summary>
         /// <param name="id">номер</param>
-        /// <returns></returns>
+        /// <returns>кота, если он найден по номеру, null, если не найден</returns>
         public Cat GetCatById(int id)
         {
             return cats.FirstOrDefault(c => c.Id == id);
@@ -50,7 +50,7 @@ namespace meow.core.Logic
         /// <param name="newAge">новый возраст</param>
         /// <param name="newWeight">новый вес</param>
         /// <param name="newColor">новый окрас</param>
-        /// <returns></returns>
+        /// <returns>тру, если кот найден и изменен, фолс, если кот с таким номером не найден</returns>
         public bool UpdateCat(int id, string newName, string newBreed, int newAge, double newWeight, string newColor)
         {
             var cat = GetCatById(id);
@@ -68,7 +68,7 @@ namespace meow.core.Logic
         /// Удаление
         /// </summary>
         /// <param name="id">номер</param>
-        /// <returns></returns>
+        /// <returns>тру, если кот найдет и удален, фолс если если кот с таким номером не найден</returns>
         public bool DeleteCat(int id)
         {
             var cat = GetCatById(id);
@@ -81,7 +81,7 @@ namespace meow.core.Logic
         /// <summary>
         /// группировка котов по породе
         /// </summary>
-        /// <returns></returns>
+        /// <returns>словарь, где ключ это название породы</returns>
         public Dictionary<string, List<Cat>> GroupByBreed()
         {
             return cats
@@ -93,7 +93,7 @@ namespace meow.core.Logic
         /// поиск котов тяжелее указанного веса
         /// </summary>
         /// <param name="minWeight"></param>
-        /// <returns></returns>
+        /// <returns>список котов, если таких нет, то пустой список</returns>
         public List<Cat> GetCatsHeavierThan(double minWeight)
         {
             return cats
