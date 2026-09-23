@@ -44,7 +44,7 @@ namespace meow.winforms
             }
         }
         /// <summary>
-        /// кнопка удалить
+        /// кнопка обновить
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -90,15 +90,6 @@ namespace meow.winforms
             catLogic.DeleteCat(selected.Id);
             RefreshGrid();
             ClearFields();
-        }
-        /// <summary>
-        /// заглушка от клика по таблице
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
         /// <summary>
         /// кнопка показать все
@@ -186,6 +177,7 @@ namespace meow.winforms
                 catLogic.AddCat("Рыжик", "Дворовая", 2, 4.1, "Рыжий");
             }
         }
+
     }
 
 }

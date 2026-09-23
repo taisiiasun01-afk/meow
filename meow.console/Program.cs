@@ -93,6 +93,9 @@ namespace meow.console
         /// </summary>
         static void UpdateCat()
         {
+            Console.WriteLine("\n=== ТЕКУЩИЙ СПИСОК КОТОВ ===");
+            ShowAll();
+
             Console.Write("Id кота для обновления: ");
             if (!int.TryParse(Console.ReadLine(), out int id)) { Console.WriteLine("Не число!"); return; }
             var cat = catLogic.GetCatById(id);
@@ -126,6 +129,8 @@ namespace meow.console
         /// </summary>
         static void DeleteCat()
         {
+            Console.WriteLine("\n=== ТЕКУЩИЙ СПИСОК КОТОВ ===");
+            ShowAll();
             Console.Write("Id кота для удаления: ");
             if (int.TryParse(Console.ReadLine(), out int id))
             {
