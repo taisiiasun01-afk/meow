@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IDomainObject.cs" />
     <Compile Include="Logic\CatLogic.cs" />
     <Compile Include="Models\Cat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
