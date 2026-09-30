@@ -1,6 +1,8 @@
-﻿namespace meow.core.Models
+﻿using meow.core.Interfaces;
+
+namespace meow.core.Models
 {
-    public class Cat
+    public class Cat: IDomainObject
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -23,7 +25,7 @@
         /// <summary>
         /// для красивого вывода
         /// </summary>
-        /// <returns></returns>
+        /// <returns>строку</returns>
         public override string ToString()
         {
             return $"[{Id}] {Name} ({Breed}), {Age} г., {Weight} кг, окрас: {Color}";
