@@ -62,7 +62,10 @@ namespace meow.console
         static void ShowAll()
         {
             var cats = catLogic.GetAllCats();
-            if (cats.Count == 0) { Console.WriteLine("Котов нет."); return; }
+            if (cats.Count == 0)
+            { 
+                Console.WriteLine("Котов нет."); return; 
+            }
             foreach (var c in cats) Console.WriteLine(c);
         }
         /// <summary>

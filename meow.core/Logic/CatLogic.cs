@@ -68,7 +68,7 @@ namespace meow.core.Logic
         /// Удаление
         /// </summary>
         /// <param name="id">номер</param>
-        /// <returns>тру, если кот найден и удален, фолс, если кот с таким номером не найден</returns>
+        /// <returns>тру, если кот найдет и удален, фолс если если кот с таким номером не найден</returns>
         public bool DeleteCat(int id)
         {
             var cat = GetCatById(id);

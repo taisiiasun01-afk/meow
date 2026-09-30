@@ -25,7 +25,7 @@ namespace meow.core.Models
         /// <summary>
         /// для красивого вывода
         /// </summary>
-        /// <returns>строку</returns>
+        /// <returns>строка вида: "[1] Барсик (Британская), 3 г., 5.2 кг, окрас: Серый".</returns>
         public override string ToString()
         {
             return $"[{Id}] {Name} ({Breed}), {Age} г., {Weight} кг, окрас: {Color}";
