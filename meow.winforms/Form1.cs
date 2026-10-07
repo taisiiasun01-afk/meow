@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using meow.core.Logic;
+using DataAccessLayer.EF;
 using meow.core.Models;
 
 namespace meow.winforms
@@ -18,7 +19,7 @@ namespace meow.winforms
         {
             InitializeComponent();
         }
-        private CatLogic catLogic = new CatLogic();
+        private CatLogic catLogic = new CatLogic(new EntityRepository<Cat>());
         /// <summary>
         /// кнопка добавить
         /// </summary>
@@ -170,7 +171,7 @@ namespace meow.winforms
         /// </summary>
         private void SeedData()
         {
-            if (catLogic.GetAllCats().Count == 0)
+            if (catLogic.GetAllCats().Count() == 0)
             {
                 catLogic.AddCat("Барсик", "Британская", 3, 5.2, "Серый");
                 catLogic.AddCat("Мурка", "Персидская", 5, 3.8, "Белый");
@@ -178,6 +179,10 @@ namespace meow.winforms
             }
         }
 
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 
 }

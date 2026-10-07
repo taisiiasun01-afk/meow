@@ -1,11 +1,14 @@
-﻿using meow.core.Logic;
+﻿using DataAccessLayer.EF;
+using meow.core.Logic;
+using meow.core.Models;
 using System;
+using System.Linq;
 
 namespace meow.console
 {
     class Program
     {
-        static CatLogic catLogic = new CatLogic();
+        static CatLogic catLogic = new CatLogic(new EntityRepository<Cat>());
         /// <summary>
         /// Меню
         /// </summary>
@@ -49,7 +52,7 @@ namespace meow.console
         /// </summary>
         static void SeedData()
         {
-            if (catLogic.GetAllCats().Count == 0)
+            if (catLogic.GetAllCats().Count() == 0)
             {
                 catLogic.AddCat("Барсик", "Британская", 3, 5.2, "Серый");
                 catLogic.AddCat("Мурка", "Персидская", 5, 3.8, "Белый");
@@ -62,7 +65,7 @@ namespace meow.console
         static void ShowAll()
         {
             var cats = catLogic.GetAllCats();
-            if (cats.Count == 0)
+            if (cats.Count() == 0)
             { 
                 Console.WriteLine("Котов нет."); return; 
             }
@@ -134,10 +137,16 @@ namespace meow.console
             Console.Write("Id кота для удаления: ");
             if (int.TryParse(Console.ReadLine(), out int id))
             {
-                if (catLogic.DeleteCat(id))
+                var cat = catLogic.GetCatById(id);
+                if (cat != null)
+                {
+                    catLogic.DeleteCat(id);
                     Console.WriteLine("Удалён!");
+                }
                 else
+                {
                     Console.WriteLine("Кот не найден!");
+                }
             }
         }
         /// <summary>

@@ -83,6 +83,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{8eb73fdb-2d49-4cff-930d-de31a6b7dab1}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\meow.core\meow.core.csproj">
       <Project>{9c9acc3c-94f3-4fa2-a64d-41cb5cc58927}</Project>
       <Name>meow.core</Name>
