@@ -1,107 +1,67 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using meow.core.Interfaces;
 using meow.core.Models;
+
 namespace meow.core.Logic
 {
     public class CatLogic
     {
-        private List<Cat> cats = new List<Cat>();
-        private int nextId = 1;
-        /// <summary>
-        /// создание кота
-        /// </summary>
-        /// <param name="name">кличка</param>
-        /// <param name="breed">порода</param>
-        /// <param name="age">возраст</param>
-        /// <param name="weight">вес</param>
-        /// <param name="color">окрас</param>
-        /// <returns>кота, с автоматически присвоенным номером</returns>
-        public Cat AddCat(string name, string breed, int age, double weight, string color)
+        private readonly IRepository<Cat> repository;
+
+        public CatLogic(IRepository<Cat> repository)
         {
-            var cat = new Cat(nextId++, name, breed, age, weight, color);
-            cats.Add(cat);
-            return cat;
+            this.repository = repository;
         }
 
-        /// <summary>
-        /// получить всех котов
-        /// </summary>
-        /// <returns>список котов</returns>
-        public List<Cat> GetAllCats()
+        public void AddCat(string name, string breed, int age, double weight, string color)
         {
-            return cats;
+            var cat = new Cat { Name = name, Breed = breed, Age = age, Weight = weight, Color = color };
+            repository.Add(cat);
         }
-        /// <summary>
-        /// получить одного кота
-        /// </summary>
-        /// <param name="id">номер</param>
-        /// <returns>кота, если он найден по номеру, null, если не найден</returns>
+
+        public IEnumerable<Cat> GetAllCats()
+        {
+            return repository.ReadAll();
+        }
+
         public Cat GetCatById(int id)
         {
-            return cats.FirstOrDefault(c => c.Id == id);
+            return repository.ReadById(id);
         }
-        /// <summary>
-        /// Изменение 
-        /// </summary>
-        /// <param name="id">номер</param>
-        /// <param name="newName">новое имя</param>
-        /// <param name="newBreed">новая порода</param>
-        /// <param name="newAge">новый возраст</param>
-        /// <param name="newWeight">новый вес</param>
-        /// <param name="newColor">новый окрас</param>
-        /// <returns>тру, если кот найден и изменен, фолс, если кот с таким номером не найден</returns>
-        public bool UpdateCat(int id, string newName, string newBreed, int newAge, double newWeight, string newColor)
+
+        public void UpdateCat(int id, string newName, string newBreed,
+                              int newAge, double newWeight, string newColor)
         {
-            var cat = GetCatById(id);
-            if (cat == null) return false;
+            var cat = repository.ReadById(id);
+            if (cat == null) return;
 
             cat.Name = newName;
             cat.Breed = newBreed;
             cat.Age = newAge;
             cat.Weight = newWeight;
             cat.Color = newColor;
-            return true;
+            repository.Update(cat);
         }
 
-        /// <summary>
-        /// Удаление
-        /// </summary>
-        /// <param name="id">номер</param>
-        /// <returns>тру, если кот найдет и удален, фолс если если кот с таким номером не найден</returns>
-        public bool DeleteCat(int id)
+        public void DeleteCat(int id)
         {
-            var cat = GetCatById(id);
-            if (cat == null) return false;
-
-            cats.Remove(cat);
-            return true;
+            repository.Delete(id);
         }
 
-        /// <summary>
-        /// группировка котов по породе
-        /// </summary>
-        /// <returns>словарь, где ключ это название породы</returns>
         public Dictionary<string, List<Cat>> GroupByBreed()
         {
-            return cats
+            return repository.ReadAll()
                 .GroupBy(c => c.Breed)
                 .ToDictionary(g => g.Key, g => g.ToList());
         }
 
-        /// <summary>
-        /// поиск котов тяжелее указанного веса
-        /// </summary>
-        /// <param name="minWeight"></param>
-        /// <returns>список котов, если таких нет, то пустой список</returns>
         public List<Cat> GetCatsHeavierThan(double minWeight)
         {
-            return cats
+            return repository.ReadAll()
                 .Where(c => c.Weight > minWeight)
                 .OrderByDescending(c => c.Weight)
                 .ToList();
         }
-
     }
 }
-
