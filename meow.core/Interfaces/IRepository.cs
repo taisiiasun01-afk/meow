@@ -11,13 +11,10 @@ namespace meow.core.Interfaces
     /// Определяет CRUD-операции для любой сущности.
     /// </summary>
     /// <typeparam name="T">Тип сущности (например, Cat).</typeparam>
-    public interface IRepository<T> where T : IDomainObject
+    public interface IRepository<T> where T : IDomainObject, new()
     {
-        /// <summary>Добавить новую сущность в БД.</summary>
-        void Add(T entity);
-
-        /// <summary>Удалить сущность по Id.</summary>
-        void Delete(int id);
+        /// <summary>Создать новую сущность в БД.</summary>
+        void Create(T obj);
 
         /// <summary>Получить все сущности.</summary>
         IEnumerable<T> ReadAll();
@@ -26,6 +23,9 @@ namespace meow.core.Interfaces
         T ReadById(int id);
 
         /// <summary>Обновить сущность.</summary>
-        void Update(T entity);
+        void Update(T obj);
+
+        /// <summary>Удалить сущность</summary>
+        void Delete(T obj);
     }
 }

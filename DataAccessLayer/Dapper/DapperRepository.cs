@@ -9,27 +9,22 @@ namespace DataAccessLayer.Dapper
     /// <summary>
     /// Репозиторий на основе Dapper (микро-ORM, работает через SQL-запросы).
     /// </summary>
-    public class DapperRepository<T> : IRepository<T> where T : class, IDomainObject
+    public class DapperRepository<T> : IRepository<T> where T : class, IDomainObject, new()
     {
-        private readonly string connectionString =
-            @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CatsDatabase.mdf;Integrated Security=True";
+        private readonly string connectionString;
 
-        public void Add(T entity)
+        public DapperRepository(string connectionString)
+        {
+            this.connectionString = connectionString;
+        }
+
+        public void Create(T obj)
         {
             using (var connection = new SqlConnection(connectionString))
             {
                 var sql = "INSERT INTO Cats (Name, Breed, Age, Weight, Color) " +
                           "VALUES (@Name, @Breed, @Age, @Weight, @Color)";
-                connection.Execute(sql, entity);
-            }
-        }
-
-        public void Delete(int id)
-        {
-            using (var connection = new SqlConnection(connectionString))
-            {
-                var sql = "DELETE FROM Cats WHERE Id = @Id";
-                connection.Execute(sql, new { Id = id });
+                connection.Execute(sql, obj);
             }
         }
 
@@ -45,18 +40,26 @@ namespace DataAccessLayer.Dapper
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                var sql = "SELECT * FROM Cats WHERE Id = @Id";
-                return connection.QueryFirstOrDefault<T>(sql, new { Id = id });
+                return connection.QueryFirstOrDefault<T>(
+                    "SELECT * FROM Cats WHERE Id = @Id", new { Id = id });
             }
         }
 
-        public void Update(T entity)
+        public void Update(T obj)
         {
             using (var connection = new SqlConnection(connectionString))
             {
                 var sql = "UPDATE Cats SET Name = @Name, Breed = @Breed, " +
                           "Age = @Age, Weight = @Weight, Color = @Color WHERE Id = @Id";
-                connection.Execute(sql, entity);
+                connection.Execute(sql, obj);
+            }
+        }
+
+        public void Delete(T obj)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Execute("DELETE FROM Cats WHERE Id = @Id", new { Id = obj.Id });
             }
         }
     }

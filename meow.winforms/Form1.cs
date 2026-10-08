@@ -60,12 +60,12 @@ namespace meow.winforms
             try
             {
                 var selected = (Cat)dataGridView1.CurrentRow.DataBoundItem;
-                catLogic.UpdateCat(selected.Id,
-                    txtName.Text, txtBreed.Text,
-                    int.Parse(txtAge.Text),
-                    double.Parse(txtWeight.Text),
-                    txtColor.Text);
-
+                selected.Name = txtName.Text;
+                selected.Breed = txtBreed.Text;
+                selected.Age = int.Parse(txtAge.Text);
+                selected.Weight = double.Parse(txtWeight.Text);
+                selected.Color = txtColor.Text;
+                catLogic.UpdateCat(selected);
                 RefreshGrid();
                 ClearFields();
             }
@@ -88,7 +88,7 @@ namespace meow.winforms
             }
 
             var selected = (Cat)dataGridView1.CurrentRow.DataBoundItem;
-            catLogic.DeleteCat(selected.Id);
+            catLogic.DeleteCat(selected);
             RefreshGrid();
             ClearFields();
         }

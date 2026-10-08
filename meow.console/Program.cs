@@ -124,7 +124,7 @@ namespace meow.console
             string color = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(color)) color = cat.Color;
 
-            catLogic.UpdateCat(id, name, breed, age, weight, color);
+            catLogic.UpdateCat(cat);
             Console.WriteLine("Обновлено!");
         }
         /// <summary>
@@ -140,7 +140,7 @@ namespace meow.console
                 var cat = catLogic.GetCatById(id);
                 if (cat != null)
                 {
-                    catLogic.DeleteCat(id);
+                    catLogic.DeleteCat(cat);
                     Console.WriteLine("Удалён!");
                 }
                 else

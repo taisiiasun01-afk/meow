@@ -17,7 +17,7 @@ namespace meow.core.Logic
         public void AddCat(string name, string breed, int age, double weight, string color)
         {
             var cat = new Cat { Name = name, Breed = breed, Age = age, Weight = weight, Color = color };
-            repository.Add(cat);
+            repository.Create(cat);
         }
 
         public IEnumerable<Cat> GetAllCats()
@@ -30,23 +30,14 @@ namespace meow.core.Logic
             return repository.ReadById(id);
         }
 
-        public void UpdateCat(int id, string newName, string newBreed,
-                              int newAge, double newWeight, string newColor)
+        public void UpdateCat(Cat cat)
         {
-            var cat = repository.ReadById(id);
-            if (cat == null) return;
-
-            cat.Name = newName;
-            cat.Breed = newBreed;
-            cat.Age = newAge;
-            cat.Weight = newWeight;
-            cat.Color = newColor;
             repository.Update(cat);
         }
 
-        public void DeleteCat(int id)
+        public void DeleteCat(Cat obj)
         {
-            repository.Delete(id);
+            repository.Delete(obj);
         }
 
         public Dictionary<string, List<Cat>> GroupByBreed()
