@@ -17,9 +17,8 @@ namespace DataAccessLayer.EF
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // Строка подключения — возьми её из свойств своей LocalDB (см. шаг 6)
             optionsBuilder.UseSqlServer(
-                @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CatsDatabase.mdf;Integrated Security=True");
+        @"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=CatsDatabase;Integrated Security=True;TrustServerCertificate=True");
         }
     }
 }

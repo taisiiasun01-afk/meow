@@ -14,6 +14,10 @@ namespace meow.winforms
         [STAThread]
         static void Main()
         {
+            using (var context = new DataAccessLayer.EF.CatsContext())
+            {
+                context.Database.EnsureCreated();
+            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
