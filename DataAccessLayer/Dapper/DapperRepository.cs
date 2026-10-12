@@ -13,9 +13,9 @@ namespace DataAccessLayer.Dapper
     {
         private readonly string connectionString;
 
-        public DapperRepository(string connectionString)
+        public DapperRepository()
         {
-            this.connectionString = connectionString;
+            this.connectionString = DatabaseSettings.ConnectionString;
         }
         /// <summary>
         /// Создать новую запись.

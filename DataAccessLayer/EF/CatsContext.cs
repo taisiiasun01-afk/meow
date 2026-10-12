@@ -17,8 +17,7 @@ namespace DataAccessLayer.EF
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(
-        @"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=CatsDatabase;Integrated Security=True;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer(DatabaseSettings.ConnectionString);
         }
     }
 }
