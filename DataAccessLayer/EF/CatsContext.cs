@@ -14,7 +14,10 @@ namespace DataAccessLayer.EF
     public class CatsContext : DbContext
     {
         public DbSet<Cat> Cats { get; set; }
-
+        /// <summary>
+        /// Настраивает подключение к базе данных. Вызывется автоматически
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(

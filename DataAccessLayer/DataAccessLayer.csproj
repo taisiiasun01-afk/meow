@@ -235,7 +235,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dapper\DapperRepository.cs" />
-    <Compile Include="DataAccessLayer.cs" />
     <Compile Include="EF\CatsContext.cs" />
     <Compile Include="EF\EntityRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
