@@ -107,22 +107,27 @@ namespace meow.console
             Console.Write($"Новая кличка ({cat.Name}): ");
             string name = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(name)) name = cat.Name;
+            cat.Name = name;
 
             Console.Write($"Новая порода ({cat.Breed}): ");
             string breed = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(breed)) breed = cat.Breed;
+            cat.Breed = breed;
 
             Console.Write($"Новый возраст ({cat.Age}): ");
             string ageStr = Console.ReadLine();
             int age = string.IsNullOrWhiteSpace(ageStr) ? cat.Age : int.Parse(ageStr);
+            cat.Age = age;
 
             Console.Write($"Новый вес ({cat.Weight}): ");
             string weightStr = Console.ReadLine();
             double weight = string.IsNullOrWhiteSpace(weightStr) ? cat.Weight : double.Parse(weightStr);
+            cat.Weight = weight;
 
             Console.Write($"Новый окрас ({cat.Color}): ");
             string color = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(color)) color = cat.Color;
+            cat.Color = color;
 
             catLogic.UpdateCat(cat);
             Console.WriteLine("Обновлено!");

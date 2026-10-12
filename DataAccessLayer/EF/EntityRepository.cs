@@ -14,13 +14,9 @@ namespace DataAccessLayer.EF
     /// </summary>
     public class EntityRepository<T> : IRepository<T> where T : class, IDomainObject, new()
     {
-        //private readonly DbContextOptions<CatsContext> options;
-
-        //public EntityRepository(DbContextOptions<CatsContext> options)
-        //{
-        //    this.options = options;
-        //}
-
+        /// <summary>
+        /// Создать новую запись.
+        /// </summary>
         public void Create(T obj)
         {
             using (var context = new CatsContext())
@@ -29,7 +25,9 @@ namespace DataAccessLayer.EF
                 context.SaveChanges();
             }
         }
-
+        /// <summary>
+        /// Получить все записи.
+        /// </summary>
         public IEnumerable<T> ReadAll()
         {
             using (var context = new CatsContext())
@@ -37,7 +35,9 @@ namespace DataAccessLayer.EF
                 return context.Set<T>().ToList();
             }
         }
-
+        /// <summary>
+        /// Получить запись по Id.
+        /// </summary>
         public T ReadById(int id)
         {
             using (var context = new CatsContext())
@@ -45,7 +45,9 @@ namespace DataAccessLayer.EF
                 return context.Set<T>().Find(id);
             }
         }
-
+        /// <summary>
+        /// Обновить существующую запись.
+        /// </summary>
         public void Update(T obj)
         {
             using (var context = new CatsContext())
@@ -54,7 +56,9 @@ namespace DataAccessLayer.EF
                 context.SaveChanges();
             }
         }
-
+        /// <summary>
+        /// Удалить запись.
+        /// </summary>
         public void Delete(T obj)
         {
             using (var context = new CatsContext())
