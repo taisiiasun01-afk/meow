@@ -19,6 +19,7 @@ namespace meow.winforms
         {
             InitializeComponent();
         }
+        
         private CatLogic catLogic = new CatLogic(new EntityRepository<Cat>());
         /// <summary>
         /// кнопка добавить

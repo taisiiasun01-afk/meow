@@ -17,7 +17,9 @@ namespace DataAccessLayer.Dapper
         {
             this.connectionString = connectionString;
         }
-
+        /// <summary>
+        /// Создать новую запись.
+        /// </summary>
         public void Create(T obj)
         {
             using (var connection = new SqlConnection(connectionString))
@@ -27,7 +29,9 @@ namespace DataAccessLayer.Dapper
                 connection.Execute(sql, obj);
             }
         }
-
+        /// <summary>
+        /// Получить все записи из таблицы Cats.
+        /// </summary>
         public IEnumerable<T> ReadAll()
         {
             using (var connection = new SqlConnection(connectionString))
@@ -35,7 +39,9 @@ namespace DataAccessLayer.Dapper
                 return connection.Query<T>("SELECT * FROM Cats").ToList();
             }
         }
-
+        /// <summary>
+        /// Получить запись по Id.
+        /// </summary>
         public T ReadById(int id)
         {
             using (var connection = new SqlConnection(connectionString))
@@ -44,7 +50,9 @@ namespace DataAccessLayer.Dapper
                     "SELECT * FROM Cats WHERE Id = @Id", new { Id = id });
             }
         }
-
+        /// <summary>
+        /// Обновить существующую запись.
+        /// </summary>
         public void Update(T obj)
         {
             using (var connection = new SqlConnection(connectionString))
@@ -54,7 +62,9 @@ namespace DataAccessLayer.Dapper
                 connection.Execute(sql, obj);
             }
         }
-
+        /// <summary>
+        /// Удалить запись.
+        /// </summary>
         public void Delete(T obj)
         {
             using (var connection = new SqlConnection(connectionString))
