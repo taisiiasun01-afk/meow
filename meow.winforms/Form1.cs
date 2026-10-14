@@ -1,4 +1,8 @@
-﻿using System;
+﻿using DataAccessLayer.Dapper;
+using DataAccessLayer.EF;
+using meow.core.Logic;
+using meow.core.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,9 +11,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using meow.core.Logic;
-using DataAccessLayer.EF;
-using meow.core.Models;
 
 namespace meow.winforms
 {
@@ -20,7 +21,7 @@ namespace meow.winforms
             InitializeComponent();
         }
         
-        private CatLogic catLogic = new CatLogic(new EntityRepository<Cat>());
+        private CatLogic catLogic = new CatLogic(new DapperRepository<Cat>());
         /// <summary>
         /// кнопка добавить
         /// </summary>

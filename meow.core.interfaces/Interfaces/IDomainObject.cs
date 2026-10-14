@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace meow.core.Interfaces
+namespace meow.core.interfaces
 {
 
     /// <summary>

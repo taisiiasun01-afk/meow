@@ -1,4 +1,4 @@
-﻿using meow.core.Interfaces;
+﻿using meow.core.interfaces;
 
 namespace meow.core.Models
 {

@@ -1,4 +1,4 @@
-﻿using meow.core.Interfaces;
+﻿using meow.core.interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

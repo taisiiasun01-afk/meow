@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using meow.core.Interfaces;
 using meow.core.Models;
+using meow.core.interfaces;
 
 namespace meow.core.Logic
 {
