@@ -21,8 +21,9 @@ namespace DataAccessLayer.Dapper
         }
 
         /// <summary>
-        /// Создать новую запись.
+        /// Создать новую запись
         /// </summary>
+        /// <param name="obj">объект для добавления в бд</param>
         public void Create(T obj)
         {
             using (var connection = new SqlConnection(connectionString))
@@ -40,8 +41,9 @@ namespace DataAccessLayer.Dapper
         }
 
         /// <summary>
-        /// Получить все записи.
+        /// Получить все записи
         /// </summary>
+        /// <returns>коллекция всех объектов</returns>
         public IEnumerable<T> ReadAll()
         {
             using (var connection = new SqlConnection(connectionString))
@@ -51,8 +53,10 @@ namespace DataAccessLayer.Dapper
         }
 
         /// <summary>
-        /// Получить запись по Id.
+        /// Получить запись по Id
         /// </summary>
+        /// <param name="id">номер</param>
+        /// <returns>конкретный объект</returns>
         public T ReadById(int id)
         {
             using (var connection = new SqlConnection(connectionString))
@@ -63,8 +67,9 @@ namespace DataAccessLayer.Dapper
         }
 
         /// <summary>
-        /// Обновить существующую запись.
+        /// Обновить существующую запись
         /// </summary>
+        /// <param name="obj">объект для обновления</param>
         public void Update(T obj)
         {
             using (var connection = new SqlConnection(connectionString))
@@ -81,8 +86,9 @@ namespace DataAccessLayer.Dapper
         }
 
         /// <summary>
-        /// Удалить запись.
+        /// Удалить запись
         /// </summary>
+        /// <param name="obj">объект для удаления</param>
         public void Delete(T obj)
         {
             using (var connection = new SqlConnection(connectionString))

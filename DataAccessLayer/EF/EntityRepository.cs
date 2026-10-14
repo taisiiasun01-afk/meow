@@ -15,8 +15,9 @@ namespace DataAccessLayer.EF
     public class EntityRepository<T> : IRepository<T> where T : class, IDomainObject, new()
     {
         /// <summary>
-        /// Создать новую запись.
+        /// Создать новую запись
         /// </summary>
+        /// <param name="obj">Объект, который нужно добавить</param>
         public void Create(T obj)
         {
             using (var context = new CatsContext())
@@ -26,8 +27,9 @@ namespace DataAccessLayer.EF
             }
         }
         /// <summary>
-        /// Получить все записи.
+        /// Получить все записи
         /// </summary>
+        /// <returns>коллекция всех типов</returns>
         public IEnumerable<T> ReadAll()
         {
             using (var context = new CatsContext())
@@ -36,8 +38,10 @@ namespace DataAccessLayer.EF
             }
         }
         /// <summary>
-        /// Получить запись по Id.
+        /// Получить запись по Id
         /// </summary>
+        /// <param name="id">номер</param>
+        /// <returns>объект по номеру</returns>
         public T ReadById(int id)
         {
             using (var context = new CatsContext())
@@ -46,8 +50,9 @@ namespace DataAccessLayer.EF
             }
         }
         /// <summary>
-        /// Обновить существующую запись.
+        /// Обновить существующую запись
         /// </summary>
+        /// <param name="obj">объект с обновленными данными</param>
         public void Update(T obj)
         {
             using (var context = new CatsContext())
@@ -57,8 +62,9 @@ namespace DataAccessLayer.EF
             }
         }
         /// <summary>
-        /// Удалить запись.
+        /// Удалить запись
         /// </summary>
+        /// <param name="obj">объект для удаления из бд</param>
         public void Delete(T obj)
         {
             using (var context = new CatsContext())
