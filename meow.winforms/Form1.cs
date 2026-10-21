@@ -21,7 +21,7 @@ namespace meow.winforms
             InitializeComponent();
         }
         
-        private CatLogic catLogic = new CatLogic(new DapperRepository<Cat>());
+        private CatLogic catLogic = new CatLogic(new CatDapperRepository());
         /// <summary>
         /// кнопка добавить
         /// </summary>

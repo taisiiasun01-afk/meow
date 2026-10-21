@@ -1,99 +1,95 @@
-﻿using System.Collections.Generic;
+﻿using Dapper;
+using meow.core.interfaces;
+using meow.core.Models;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using Dapper;
-using meow.core.interfaces;
 
 namespace DataAccessLayer.Dapper
 {
     /// <summary>
     /// Репозиторий на основе Dapper
     /// </summary>
-    public class DapperRepository<T> : IRepository<T> where T : class, IDomainObject, new()
+    public class CatDapperRepository : IRepository<Cat>
     {
+        /// <summary>Строка подключения к базе данных.</summary>
         private readonly string connectionString;
 
-        private readonly string tableName = typeof(T).Name+ "s";
-
-        public DapperRepository()
+        /// <summary>
+        /// Создаёт репозиторий с настройками подключения по умолчанию.
+        /// </summary>
+        public CatDapperRepository()
         {
             this.connectionString = DatabaseSettings.ConnectionString;
         }
 
         /// <summary>
-        /// Создать новую запись
+        /// Создать нового кота в базе данных.
+        /// Выполняет SQL-запрос INSERT.
         /// </summary>
-        /// <param name="obj">объект для добавления в бд</param>
-        public void Create(T obj)
+        /// <param name="obj">Объект Cat, который нужно добавить.</param>
+        public void Create(Cat obj)
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                var properties = typeof(T).GetProperties()
-                    .Where(p => p.Name != "Id")
-                    .Select(p => p.Name);
-
-                var columns = string.Join(", ", properties);
-                var values = string.Join(", ", properties.Select(p => "@" + p));
-
-                var sql = $"INSERT INTO {tableName} ({columns}) VALUES ({values})";
+                var sql = "INSERT INTO Cats (Name, Breed, Age, Weight, Color) " +
+                          "VALUES (@Name, @Breed, @Age, @Weight, @Color)";
                 connection.Execute(sql, obj);
             }
         }
 
         /// <summary>
-        /// Получить все записи
+        /// Получить всех котов из базы данных.
+        /// Выполняет SQL-запрос SELECT.
         /// </summary>
-        /// <returns>коллекция всех объектов</returns>
-        public IEnumerable<T> ReadAll()
+        /// <returns>Список объектов Cat. Если котов нет — пустой список.</returns>
+        public IEnumerable<Cat> ReadAll()
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                return connection.Query<T>($"SELECT * FROM {tableName}").ToList();
+                return connection.Query<Cat>("SELECT * FROM Cats").ToList();
             }
         }
 
         /// <summary>
-        /// Получить запись по Id
+        /// Получить кота по Id.
         /// </summary>
-        /// <param name="id">номер</param>
-        /// <returns>конкретный объект</returns>
-        public T ReadById(int id)
+        /// <param name="id">Идентификатор кота.</param>
+        /// <returns>Объект Cat или null, если не найден.</returns>
+        public Cat ReadById(int id)
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                return connection.QueryFirstOrDefault<T>(
-                    $"SELECT * FROM {tableName} WHERE Id = @Id", new { Id = id });
+                return connection.QueryFirstOrDefault<Cat>(
+                    "SELECT * FROM Cats WHERE Id = @Id", new { Id = id });
             }
         }
 
         /// <summary>
-        /// Обновить существующую запись
+        /// Обновить существующего кота в базе данных.
+        /// Выполняет SQL-запрос UPDATE.
         /// </summary>
-        /// <param name="obj">объект для обновления</param>
-        public void Update(T obj)
+        /// <param name="obj">Объект Cat с обновлёнными данными. Поле Id — ключ.</param>
+        public void Update(Cat obj)
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                var properties = typeof(T).GetProperties()
-                    .Where(p => p.Name != "Id")
-                    .Select(p => $"{p.Name} = @{p.Name}");
-
-                var setClause = string.Join(", ", properties);
-
-                var sql = $"UPDATE {tableName} SET {setClause} WHERE Id = @Id";
+                var sql = "UPDATE Cats SET Name = @Name, Breed = @Breed, " +
+                          "Age = @Age, Weight = @Weight, Color = @Color WHERE Id = @Id";
                 connection.Execute(sql, obj);
             }
         }
 
         /// <summary>
-        /// Удалить запись
+        /// Удалить кота из базы данных.
+        /// Выполняет SQL-запрос DELETE.
         /// </summary>
-        /// <param name="obj">объект для удаления</param>
-        public void Delete(T obj)
+        /// <param name="obj">Объект Cat, который нужно удалить. Поле Id — ключ.</param>
+        public void Delete(Cat obj)
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                connection.Execute($"DELETE FROM {tableName} WHERE Id = @Id", new { Id = obj.Id });
+                connection.Execute("DELETE FROM Cats WHERE Id = @Id", new { Id = obj.Id });
             }
         }
     }
