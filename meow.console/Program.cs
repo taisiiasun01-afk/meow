@@ -9,6 +9,7 @@ namespace meow.console
 {
     class Program
     {
+
         static CatLogic catLogic = new CatLogic(new EntityRepository<Cat>());
         /// <summary>
         /// Меню
@@ -16,6 +17,12 @@ namespace meow.console
         /// <param name="args">аргументы командной строки</param>
         static void Main(string[] args)
         {
+            using (var context = new CatsContext())
+            {
+                context.Database.EnsureCreated();   // <-- создаст БД и таблицу, если их нет
+            }
+
+
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             SeedData(); 
 

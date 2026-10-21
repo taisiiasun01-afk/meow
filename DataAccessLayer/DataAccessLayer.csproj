@@ -268,10 +268,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CatsDatabase.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="CatsDatabase_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>CatsDatabase.mdf</DependentUpon>
     </Content>
   </ItemGroup>

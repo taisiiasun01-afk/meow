@@ -11,6 +11,7 @@ namespace DataAccessLayer
     /// </summary>
     public static class DatabaseSettings
     {
-        public const string ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Пользователь\Desktop\сфу\архитектура\meow\DataAccessLayer\CatsDatabase.mdf;Integrated Security = True";
+        public const string ConnectionString =
+            @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CatsDatabase.mdf;Integrated Security=True;TrustServerCertificate=True";
     }
 }

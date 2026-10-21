@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -165,6 +166,12 @@ namespace meow.winforms
         /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
+            using (var context = new CatsContext())
+            {
+                context.Database.EnsureCreated();
+            }
+
+
             SeedData();
             RefreshGrid();
         }
