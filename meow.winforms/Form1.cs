@@ -2,6 +2,7 @@
 using DataAccessLayer.EF;
 using meow.core.Logic;
 using meow.core.Models;
+using Ninject;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,17 +13,22 @@ using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataAccessLayer; 
 
 namespace meow.winforms
 {
     public partial class Form1 : Form
     {
+        private IKernel kernel = new StandardKernel(new SimpleConfigModule());
+        private CatLogic catLogic;
+
         public Form1()
         {
             InitializeComponent();
+            catLogic = kernel.Get<CatLogic>();
         }
-        
-        private CatLogic catLogic = new CatLogic(new CatDapperRepository());
+
+
         /// <summary>
         /// кнопка добавить
         /// </summary>
