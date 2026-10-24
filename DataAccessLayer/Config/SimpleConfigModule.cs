@@ -5,10 +5,6 @@ using DataAccessLayer.EF;
 
 namespace DataAccessLayer 
 {
-    /// <summary>
-    /// Модуль конфигурации Ninject.
-    /// Связывает интерфейс IRepository с конкретной реализацией.
-    /// </summary>
     public class SimpleConfigModule : NinjectModule
     {
         public override void Load()
