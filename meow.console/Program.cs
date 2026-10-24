@@ -23,12 +23,11 @@ namespace meow.console
         {
             IKernel ninjectKernel = new StandardKernel(new SimpleConfigModule());
 
-            // 2. Получаем логику
             catLogic = ninjectKernel.Get<CatLogic>();
 
             using (var context = new CatsContext())
             {
-                context.Database.EnsureCreated();   // <-- создаст БД и таблицу, если их нет
+                context.Database.EnsureCreated();  
             }
 
 

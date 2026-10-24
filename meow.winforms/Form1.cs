@@ -50,7 +50,7 @@ namespace meow.winforms
             }
             catch (FormatException)
             {
-                MessageBox.Show("Возраст - целое число, вес — число с точкой (например, 6.7)");
+                MessageBox.Show("Возраст - целое число, вес - число с точкой (например, 6.7)");
             }
         }
         /// <summary>
@@ -192,11 +192,6 @@ namespace meow.winforms
                 catLogic.AddCat("Мурка", "Персидская", 5, 3.8, "Белый");
                 catLogic.AddCat("Рыжик", "Дворовая", 2, 4.1, "Рыжий");
             }
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 

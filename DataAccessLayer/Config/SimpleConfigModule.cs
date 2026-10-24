@@ -1,9 +1,9 @@
 ﻿using Ninject.Modules;
-using meow.core.interfaces; // <-- Твой namespace интерфейсов
+using meow.core.interfaces;
 using meow.core.Models;
 using DataAccessLayer.EF;
 
-namespace DataAccessLayer // <-- Пространство имен самого слоя
+namespace DataAccessLayer 
 {
     /// <summary>
     /// Модуль конфигурации Ninject.
@@ -13,7 +13,6 @@ namespace DataAccessLayer // <-- Пространство имен самого 
     {
         public override void Load()
         {
-            // Привязываем интерфейс к конкретному классу
             Bind<IRepository<Cat>>().To<EntityRepository<Cat>>().InSingletonScope();
         }
     }

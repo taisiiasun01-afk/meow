@@ -10,7 +10,7 @@ namespace meow.core.Logic
     /// </summary>
     public class CatLogic
     {
-        private readonly IRepository<Cat> repository;
+        private IRepository<Cat> repository;
 
         /// <summary>
         /// Создаёт логику с указанным репозиторием.
