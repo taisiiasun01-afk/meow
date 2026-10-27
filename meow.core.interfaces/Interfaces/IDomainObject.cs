@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace meow.core.interfaces
 {
-
     /// <summary>
     /// Базовый интерфейс для всех доменных сущностей.
     /// Гарантирует наличие уникального идентификатора.
     /// </summary>
+    
     public interface IDomainObject
     {
         int Id {  get; set; }  

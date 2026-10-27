@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    /// <summary>
-    /// Настройки подключения к базе данных.
-    /// </summary>
     public static class DatabaseSettings
     {
         public const string ConnectionString =

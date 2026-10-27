@@ -13,8 +13,8 @@ namespace meow.console
 {
     class Program
     {
+        static CatLogic catLogic;
 
-        static CatLogic catLogic = new CatLogic(new EntityRepository<Cat>());
         /// <summary>
         /// Меню
         /// </summary>
