@@ -1,78 +1,80 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using meow.core.interfaces;
+using meow.core.interfaces.Interfaces;
 using meow.core.Models;
-using meow.core.interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace meow.core.Logic
 {
     /// <summary>
     /// Бизнес-логика для работы с котами.
+    /// Содержит только правила обработки данных, не зависит от источника данных.
     /// </summary>
-    public class CatLogic
-    {
-        private IRepository<Cat> repository;
+    public class CatLogic: ICatLogic
 
+    {
+        private readonly CatService catService;
         /// <summary>
-        /// Создаёт логику с указанным репозиторием.
+        /// Создает экземпляр бизнес-логики.
         /// </summary>
-        /// <param name="repository">Репозиторий для работы с БД (EF Core или Dapper).</param>
-        public CatLogic(IRepository<Cat> repository)
+        /// <param name="catService">Сервис для доступа к данным.</param>
+        public CatLogic(CatService catService)
         {
-            this.repository = repository;
+            this.catService = catService;
         }
         /// <summary>
-        /// Добавить нового кота
+        /// Добавить нового кота.
         /// </summary>
-        /// <param name="name">кличка</param>
-        /// <param name="breed">порода</param>
-        /// <param name="age">возраст</param>
-        /// <param name="weight">вес</param>
-        /// <param name="color">окрас</param>
+        /// <param name="name">Кличка кота.</param>
+        /// <param name="breed">Порода кота.</param>
+        /// <param name="age">Возраст в годах.</param>
+        /// <param name="weight">Вес в килограммах.</param>
+        /// <param name="color">Окрас кота.</param>
         public void AddCat(string name, string breed, int age, double weight, string color)
         {
-            var cat = new Cat { Name = name, Breed = breed, Age = age, Weight = weight, Color = color };
-            repository.Create(cat);
+            catService.AddCat(name, breed, age, weight, color);
         }
         /// <summary>
-        /// Получить всех котов
+        /// Получить всех котов из базы данных.
         /// </summary>
-        /// <returns>список всех котов</returns>
+        /// <returns>Список всех котов.</returns>
         public List<Cat> GetAllCats()
         {
-            return repository.ReadAll().ToList();
+            return catService.GetAllCats();
         }
         /// <summary>
-        /// Получить кота по Id
+        /// Обновить данные существующего кота.
         /// </summary>
-        /// <param name="id">номер</param>
-        /// <returns>конкретного кота</returns>
-        public Cat GetCatById(int id)
-        {
-            return repository.ReadById(id);
-        }
-        /// <summary>
-        /// Обновить данные кота
-        /// </summary>
-        /// <param name="cat">объект с одновленными данными</param>
+        /// <param name="cat">Объект Cat с обновленными данными.</param>
         public void UpdateCat(Cat cat)
         {
-            repository.Update(cat);
+            catService.UpdateCat(cat);
         }
         /// <summary>
-        /// Удалить кота
+        /// Удалить кота из базы данных.
         /// </summary>
-        /// <param name="obj">объект для удаления</param>
+        /// <param name="obj">Объект Cat, который нужно удалить.</param>
         public void DeleteCat(Cat obj)
         {
-            repository.Delete(obj);
+            catService.DeleteCat(obj);
         }
+        /// <summary>
+        /// Найти кота по его идентификатору.
+        /// </summary>
+        /// <param name="id">Идентификатор кота.</param>
+        /// <returns>Объект Cat или null, если кот не найден.</returns>
+        public Cat GetCatById(int id)
+        {
+            return catService.GetCatById(id);
+        }
+
         /// <summary>
         /// Сгруппировать котов по породе
         /// </summary>
         /// <returns>список котов с одной породой</returns>
         public Dictionary<string, List<Cat>> GroupByBreed()
         {
-            return repository.ReadAll()
+            return catService.GetAllCats()
                 .GroupBy(c => c.Breed)
                 .ToDictionary(g => g.Key, g => g.ToList());
         }
@@ -83,7 +85,7 @@ namespace meow.core.Logic
         /// <returns>список котов, тяжелее заданного веса</returns>
         public List<Cat> GetCatsHeavierThan(double minWeight)
         {
-            return repository.ReadAll()
+            return catService.GetAllCats()
                 .Where(c => c.Weight > minWeight)
                 .OrderByDescending(c => c.Weight)
                 .ToList();

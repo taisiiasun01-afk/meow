@@ -1,19 +1,20 @@
 ﻿using DataAccessLayer;
 using DataAccessLayer.Dapper;
 using DataAccessLayer.EF;
+using meow.core.interfaces.Interfaces;
+using meow.core.Logic;
 using meow.core.Logic;
 using meow.core.Models;
+using Ninject;
 using System;
 using System.Linq;
-using Ninject;
-using meow.core.Logic;
 
 
 namespace meow.console
 {
     class Program
     {
-        static CatLogic catLogic;
+        static ICatLogic catLogic;
 
         /// <summary>
         /// Меню
@@ -23,7 +24,7 @@ namespace meow.console
         {
             IKernel ninjectKernel = new StandardKernel(new SimpleConfigModule());
 
-            catLogic = ninjectKernel.Get<CatLogic>();
+            catLogic = ninjectKernel.Get<ICatLogic>();
 
             using (var context = new CatsContext())
             {

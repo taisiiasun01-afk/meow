@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\CatLogic.cs" />
+    <Compile Include="Logic\CatServise.cs" />
+    <Compile Include="Logic\ICatLogic.cs" />
     <Compile Include="Models\Cat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

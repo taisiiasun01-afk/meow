@@ -1,5 +1,8 @@
-﻿using DataAccessLayer.Dapper;
+﻿using DataAccessLayer;
+using DataAccessLayer.Dapper;
 using DataAccessLayer.EF;
+using meow.core.interfaces.Interfaces;
+using meow.core.Logic;
 using meow.core.Logic;
 using meow.core.Models;
 using Ninject;
@@ -13,19 +16,17 @@ using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DataAccessLayer; 
 
 namespace meow.winforms
 {
     public partial class Form1 : Form
     {
         private IKernel kernel = new StandardKernel(new SimpleConfigModule());
-        private CatLogic catLogic;
-
+        private ICatLogic catLogic;
         public Form1()
         {
             InitializeComponent();
-            catLogic = kernel.Get<CatLogic>();
+            catLogic = kernel.Get<ICatLogic>(); 
         }
 
 
@@ -44,8 +45,7 @@ namespace meow.winforms
                 double weight = double.Parse(txtWeight.Text);
                 string color = txtColor.Text;
 
-                catLogic.AddCat(name, breed, age, weight, color);
-                RefreshGrid();
+                catLogic.AddCat(name, breed, age, weight, color); RefreshGrid();
                 ClearFields();
             }
             catch (FormatException)
@@ -186,7 +186,7 @@ namespace meow.winforms
         /// </summary>
         private void SeedData()
         {
-            if (catLogic.GetAllCats().Count() == 0)
+            if (catLogic.GetAllCats().Count == 0)
             {
                 catLogic.AddCat("Барсик", "Британская", 3, 5.2, "Серый");
                 catLogic.AddCat("Мурка", "Персидская", 5, 3.8, "Белый");
