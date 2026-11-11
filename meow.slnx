@@ -4,4 +4,5 @@
   <Project Path="meow.core.interfaces/meow.core.interfaces.csproj" Id="e42a58ad-6996-4cf5-813e-ee7ccb0f98b8" />
   <Project Path="meow.core/meow.core.csproj" Id="9c9acc3c-94f3-4fa2-a64d-41cb5cc58927" />
   <Project Path="meow.winforms/meow.winforms.csproj" Id="5f9bfbe8-2d2c-4a6a-b42d-a6eae999d8b5" />
+  <Project Path="Shared/Shared.csproj" Id="6cfbcb1b-1b2c-4353-9521-4af5c6106529" />
 </Solution>
