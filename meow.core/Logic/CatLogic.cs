@@ -1,10 +1,10 @@
 ﻿using meow.core.interfaces;
-using meow.core.interfaces.Interfaces;
 using Shared;
 using Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using meow.core.interfaces.Interfaces;
 
 namespace meow.core.Logic
 {
@@ -12,7 +12,7 @@ namespace meow.core.Logic
     /// Бизнес-логика для работы с котами.
     /// Содержит только правила обработки данных, не зависит от источника данных.
     /// </summary>
-    public class CatLogic : ICatModel
+    public class CatLogic : ICatModel, ICatLogic
 
     {
         private readonly CatService catService;
@@ -55,6 +55,30 @@ namespace meow.core.Logic
             }
         }
 
+        public void AddCat(string name, string breed, int age, double weight, string color)
+        {
+            catService.AddCat(name, breed, age, weight, color);
+        }
+
+        public List<Cat> GetAllCats()
+        {
+            return catService.GetAllCats();
+        }
+
+        public Cat GetCatById(int id)
+        {
+            return catService.GetCatById(id);
+        }
+
+        public void UpdateCat(Cat cat)
+        {
+            catService.UpdateCat(cat);
+        }
+
+        public void DeleteCat(Cat obj)
+        {
+            catService.DeleteCat(obj);
+        }
         public List<Cat> GetAll() => catService.GetAllCats();
 
         // Твои бизнес-функции (если нужны презентеру)
