@@ -1,6 +1,8 @@
 ﻿using meow.core.interfaces;
 using meow.core.interfaces.Interfaces;
-using meow.core.Models;
+using Shared;
+using Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,10 +12,11 @@ namespace meow.core.Logic
     /// Бизнес-логика для работы с котами.
     /// Содержит только правила обработки данных, не зависит от источника данных.
     /// </summary>
-    public class CatLogic: ICatLogic
+    public class CatLogic : ICatModel
 
     {
         private readonly CatService catService;
+        public event Action DataChanged;
         /// <summary>
         /// Создает экземпляр бизнес-логики.
         /// </summary>
@@ -30,65 +33,39 @@ namespace meow.core.Logic
         /// <param name="age">Возраст в годах.</param>
         /// <param name="weight">Вес в килограммах.</param>
         /// <param name="color">Окрас кота.</param>
-        public void AddCat(string name, string breed, int age, double weight, string color)
+        public void Insert(Cat cat)
         {
-            catService.AddCat(name, breed, age, weight, color);
-        }
-        /// <summary>
-        /// Получить всех котов из базы данных.
-        /// </summary>
-        /// <returns>Список всех котов.</returns>
-        public List<Cat> GetAllCats()
-        {
-            return catService.GetAllCats();
-        }
-        /// <summary>
-        /// Обновить данные существующего кота.
-        /// </summary>
-        /// <param name="cat">Объект Cat с обновленными данными.</param>
-        public void UpdateCat(Cat cat)
-        {
-            catService.UpdateCat(cat);
-        }
-        /// <summary>
-        /// Удалить кота из базы данных.
-        /// </summary>
-        /// <param name="obj">Объект Cat, который нужно удалить.</param>
-        public void DeleteCat(Cat obj)
-        {
-            catService.DeleteCat(obj);
-        }
-        /// <summary>
-        /// Найти кота по его идентификатору.
-        /// </summary>
-        /// <param name="id">Идентификатор кота.</param>
-        /// <returns>Объект Cat или null, если кот не найден.</returns>
-        public Cat GetCatById(int id)
-        {
-            return catService.GetCatById(id);
+            catService.AddCat(cat.Name, cat.Breed, cat.Age, cat.Weight, cat.Color);
+            DataChanged?.Invoke(); // Сообщаем, что данные изменились
         }
 
-        /// <summary>
-        /// Сгруппировать котов по породе
-        /// </summary>
-        /// <returns>список котов с одной породой</returns>
+        public void Update(Cat cat)
+        {
+            catService.UpdateCat(cat);
+            DataChanged?.Invoke();
+        }
+
+        public void Delete(int id)
+        {
+            var cat = catService.GetCatById(id);
+            if (cat != null)
+            {
+                catService.DeleteCat(cat);
+                DataChanged?.Invoke();
+            }
+        }
+
+        public List<Cat> GetAll() => catService.GetAllCats();
+
+        // Твои бизнес-функции (если нужны презентеру)
         public Dictionary<string, List<Cat>> GroupByBreed()
         {
-            return catService.GetAllCats()
-                .GroupBy(c => c.Breed)
-                .ToDictionary(g => g.Key, g => g.ToList());
+            return GetAll().GroupBy(c => c.Breed).ToDictionary(g => g.Key, g => g.ToList());
         }
-        /// <summary>
-        /// Получить котов тяжелее заданного веса
-        /// </summary>
-        /// <param name="minWeight">вес, для сравнения</param>
-        /// <returns>список котов, тяжелее заданного веса</returns>
+
         public List<Cat> GetCatsHeavierThan(double minWeight)
         {
-            return catService.GetAllCats()
-                .Where(c => c.Weight > minWeight)
-                .OrderByDescending(c => c.Weight)
-                .ToList();
+            return GetAll().Where(c => c.Weight > minWeight).OrderByDescending(c => c.Weight).ToList();
         }
     }
 }

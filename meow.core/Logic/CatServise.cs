@@ -1,5 +1,5 @@
 ﻿using meow.core.interfaces;
-using meow.core.Models;
+using Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Presenter;
+using meow.core.Logic;
+using DataAccessLayer.EF;
+using Shared;
+using Shared.Models;
 namespace meow.winforms
 {
     internal static class Program
@@ -16,7 +17,20 @@ namespace meow.winforms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            
+
+            var view = new Form1();
+
+            
+            var repo = new EntityRepository<Cat>();
+            var service = new CatService(repo);
+            ICatModel model = new CatLogic(service);
+
+            
+            var presenter = new CatPresenter(view, model);
+
+            
+            Application.Run(view);
         }
     }
 }

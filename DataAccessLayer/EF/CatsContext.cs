@@ -1,4 +1,4 @@
-﻿using meow.core.Models;
+﻿using Shared.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

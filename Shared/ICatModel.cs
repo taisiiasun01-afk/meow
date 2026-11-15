@@ -1,4 +1,5 @@
-﻿using meow.core.Models;
+﻿
+using Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,9 @@ namespace Shared
     /// <summary>
     /// Интерфейс модели. Презентер работает с ней через этот интерфейс.
     /// </summary>
-    internal interface ICatModel
+    public interface ICatModel
     {
-        event Action DataChanged;
-
+        event Action DataChanged; // Событие: данные изменились
         void Insert(Cat cat);
         void Update(Cat cat);
         void Delete(int id);

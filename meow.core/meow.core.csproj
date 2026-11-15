@@ -47,7 +47,6 @@
     <Compile Include="Logic\CatLogic.cs" />
     <Compile Include="Logic\CatServise.cs" />
     <Compile Include="Logic\ICatLogic.cs" />
-    <Compile Include="Models\Cat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -55,9 +54,16 @@
       <Project>{e42a58ad-6996-4cf5-813e-ee7ccb0f98b8}</Project>
       <Name>meow.core.interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Shared\Shared.csproj">
+      <Project>{6cfbcb1b-1b2c-4353-9521-4af5c6106529}</Project>
+      <Name>Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

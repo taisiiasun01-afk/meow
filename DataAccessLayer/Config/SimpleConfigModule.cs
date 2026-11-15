@@ -2,7 +2,7 @@
 using meow.core.interfaces;
 using meow.core.interfaces.Interfaces;
 using meow.core.Logic;
-using meow.core.Models;
+using Shared.Models;
 using Ninject.Modules;
 
 namespace DataAccessLayer 

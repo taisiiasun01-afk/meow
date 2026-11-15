@@ -1,106 +1,48 @@
-﻿using DataAccessLayer;
-using DataAccessLayer.Dapper;
-using DataAccessLayer.EF;
-using meow.core.interfaces.Interfaces;
-using meow.core.Logic;
-using meow.core.Logic;
-using meow.core.Models;
-using Ninject;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Shared;
+using Shared.Models;
 
 namespace meow.winforms
 {
-    public partial class Form1 : Form
+    public partial class Form1 : Form, ICatView
     {
-        private IKernel kernel = new StandardKernel(new SimpleConfigModule());
-        private ICatLogic catLogic;
+        public event Action AddCatEvent;
+        public event Action<int> DeleteCatEvent;
+        public event Action UpdateCatEvent;
         public Form1()
         {
             InitializeComponent();
-            catLogic = kernel.Get<ICatLogic>(); 
         }
 
-
+        public string GetName() => txtName.Text;
+        public string GetBreed() => txtBreed.Text;
+        public int GetAge() => int.TryParse(txtAge.Text, out int a) ? a : 0;
+        public double GetWeight() => double.TryParse(txtWeight.Text, out double w) ? w : 0;
+        public string GetColor() => txtColor.Text;
+        public int GetSelectedId() => (dataGridView1.CurrentRow?.DataBoundItem as Cat)?.Id ?? 0;
+        
         /// <summary>
         /// кнопка добавить
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string name = txtName.Text;
-                string breed = txtBreed.Text;
-                int age = int.Parse(txtAge.Text);
-                double weight = double.Parse(txtWeight.Text);
-                string color = txtColor.Text;
-
-                catLogic.AddCat(name, breed, age, weight, color); RefreshGrid();
-                ClearFields();
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("Возраст - целое число, вес - число с точкой (например, 6.7)");
-            }
-        }
+        private void btnAdd_Click(object sender, EventArgs e) => AddCatEvent?.Invoke();
         /// <summary>
         /// кнопка обновить
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            if (dataGridView1.CurrentRow == null)
-            {
-                MessageBox.Show("Выдели кота в таблице!");
-                return;
-            }
-
-            try
-            {
-                var selected = (Cat)dataGridView1.CurrentRow.DataBoundItem;
-                selected.Name = txtName.Text;
-                selected.Breed = txtBreed.Text;
-                selected.Age = int.Parse(txtAge.Text);
-                selected.Weight = double.Parse(txtWeight.Text);
-                selected.Color = txtColor.Text;
-                catLogic.UpdateCat(selected);
-                RefreshGrid();
-                ClearFields();
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("Проверь формат ввода!");
-            }
-        }
+        private void btnUpdate_Click(object sender, EventArgs e) => UpdateCatEvent?.Invoke();
         /// <summary>
         /// кнопка удалить
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            if (dataGridView1.CurrentRow == null)
-            {
-                MessageBox.Show("Выдели кота!");
-                return;
-            }
+        private void btnDelete_Click(object sender, EventArgs e) => DeleteCatEvent?.Invoke(GetSelectedId());
 
-            var selected = (Cat)dataGridView1.CurrentRow.DataBoundItem;
-            catLogic.DeleteCat(selected);
-            RefreshGrid();
-            ClearFields();
-        }
         /// <summary>
         /// кнопка показать все
         /// </summary>
@@ -108,7 +50,7 @@ namespace meow.winforms
         /// <param name="e"></param>
         private void btnShowAll_Click(object sender, EventArgs e)
         {
-            RefreshGrid();
+           
 
         }
         /// <summary>
@@ -118,16 +60,7 @@ namespace meow.winforms
         /// <param name="e"></param>
         private void btnGroup_Click(object sender, EventArgs e)
         {
-            var groups = catLogic.GroupByBreed();
-            string result = "";
-            foreach (var g in groups)
-            {
-                result += $"Порода: {g.Key} ({g.Value.Count} шт.)\n";
-                foreach (var cat in g.Value)
-                    result += "   " + cat + "\n";
-                result += "\n";
-            }
-            MessageBox.Show(result, "Группировка по породе");
+            
         }
         /// <summary>
         /// кнопка тяжелее чем n кг
@@ -136,22 +69,15 @@ namespace meow.winforms
         /// <param name="e"></param>
         private void btnHeavy_Click(object sender, EventArgs e)
         {
-            if (double.TryParse(txtHeavyWeight.Text, out double minWeight))
-            {
-                var heavy = catLogic.GetCatsHeavierThan(minWeight);
-                string result = heavy.Count == 0
-                    ? "Нет котов тяжелее " + minWeight
-                    : string.Join("\n", heavy);
-                MessageBox.Show(result, "Тяжёлые коты");
-            }
+            
         }
         /// <summary>
         /// обновить таблицу
         /// </summary>
-        private void RefreshGrid()
+        public void RedrawForm(IEnumerable<Cat> data)
         {
             dataGridView1.DataSource = null;
-            dataGridView1.DataSource = catLogic.GetAllCats();
+            dataGridView1.DataSource = data.ToList();
         }
         /// <summary>
         /// очистить поля ввывода
@@ -172,26 +98,15 @@ namespace meow.winforms
         /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            using (var context = new CatsContext())
-            {
-                context.Database.EnsureCreated();
-            }
-
-
-            SeedData();
-            RefreshGrid();
+            
         }
         /// <summary>
         /// добавление исходных котов
         /// </summary>
-        private void SeedData()
+        
+        public void ShowMessage(string message)
         {
-            if (catLogic.GetAllCats().Count == 0)
-            {
-                catLogic.AddCat("Барсик", "Британская", 3, 5.2, "Серый");
-                catLogic.AddCat("Мурка", "Персидская", 5, 3.8, "Белый");
-                catLogic.AddCat("Рыжик", "Дворовая", 2, 4.1, "Рыжий");
-            }
+            MessageBox.Show(message);
         }
     }
 

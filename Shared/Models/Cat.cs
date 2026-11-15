@@ -1,6 +1,6 @@
 ﻿using meow.core.interfaces;
 
-namespace meow.core.Models
+namespace Shared.Models
 {
     public class Cat: IDomainObject
     {
