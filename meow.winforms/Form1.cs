@@ -22,26 +22,54 @@ namespace meow.winforms
         public int GetAge() => int.TryParse(txtAge.Text, out int a) ? a : 0;
         public double GetWeight() => double.TryParse(txtWeight.Text, out double w) ? w : 0;
         public string GetColor() => txtColor.Text;
-        public int GetSelectedId() => (dataGridView1.CurrentRow?.DataBoundItem as Cat)?.Id ?? 0;
-        
+        public int GetSelectedId()
+        {
+            if (dataGridView1.CurrentRow == null)
+                return 0;
+
+            var cat = dataGridView1.CurrentRow.DataBoundItem as Cat;
+            if (cat == null)
+                return 0;
+
+            return cat.Id;
+        }
+
         /// <summary>
         /// кнопка добавить
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnAdd_Click(object sender, EventArgs e) => AddCatEvent?.Invoke();
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (AddCatEvent != null)
+            {
+                AddCatEvent();
+            }
+        }
         /// <summary>
         /// кнопка обновить
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnUpdate_Click(object sender, EventArgs e) => UpdateCatEvent?.Invoke();
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if (UpdateCatEvent != null)
+            {
+                UpdateCatEvent();
+            }
+        }
         /// <summary>
         /// кнопка удалить
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnDelete_Click(object sender, EventArgs e) => DeleteCatEvent?.Invoke(GetSelectedId());
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (DeleteCatEvent != null)
+            {
+                DeleteCatEvent(GetSelectedId());
+            }
+        }
 
         /// <summary>
         /// кнопка показать все
@@ -79,18 +107,18 @@ namespace meow.winforms
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = data.ToList();
         }
-        /// <summary>
-        /// очистить поля ввывода
-        /// </summary>
-        private void ClearFields()
-        {
-            txtName.Text = "";
-            txtBreed.Text = "";
-            txtAge.Text = "";
-            txtWeight.Text = "";
-            txtColor.Text = "";
-            txtHeavyWeight.Text = "";
-        }
+        ///// <summary>
+        ///// очистить поля ввывода
+        ///// </summary>
+        //private void ClearFields()
+        //{
+        //    txtName.Text = "";
+        //    txtBreed.Text = "";
+        //    txtAge.Text = "";
+        //    txtWeight.Text = "";
+        //    txtColor.Text = "";
+        //    txtHeavyWeight.Text = "";
+        //}
         /// <summary>
         /// загруска формы
         /// </summary>

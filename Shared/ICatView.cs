@@ -17,6 +17,7 @@ namespace Shared
         event Action<int> DeleteCatEvent;
         event Action UpdateCatEvent;
 
+
         string GetName();
         string GetBreed();
         int GetAge();

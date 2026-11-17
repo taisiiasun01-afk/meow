@@ -107,6 +107,14 @@ namespace meow.core.Logic
         /// Получить список всех котов (реализация ICatLogic).
         /// </summary>
         /// <returns>Список объектов Cat.</returns>
+        public List<Cat> GetAllCats()
+        {
+            return catService.GetAllCats();
+        }
+        /// <summary>
+        /// Получить список всех котов (реализация ICatLogic).
+        /// </summary>
+        /// <returns>Список объектов Cat.</returns>
         public List<Cat> GetAll() => catService.GetAllCats();
         /// <summary>
         /// Сгруппировать всех котов по породе.

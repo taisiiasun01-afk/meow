@@ -13,7 +13,7 @@ namespace Shared
     /// </summary>
     public interface ICatModel
     {
-        event Action DataChanged; // Событие: данные изменились
+        event Action DataChanged; 
         void Insert(Cat cat);
         void Update(Cat cat);
         void Delete(int id);
