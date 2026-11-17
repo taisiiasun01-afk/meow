@@ -16,15 +16,12 @@ namespace Presenter
             this.view = view;
             this.model = model;
 
-            // 1. Подписываемся на события View
             view.AddCatEvent += OnAddData;
             view.DeleteCatEvent += OnDeleteData;
             view.UpdateCatEvent += OnUpdateData;
 
-            // 2. Подписываемся на события Model
             model.DataChanged += OnDataChanged;
 
-            // Первичная отрисовка
             OnDataChanged();
         }
 
@@ -73,7 +70,6 @@ namespace Presenter
             else view.ShowMessage("Выбери кота для обновления!");
         }
 
-        // Этот метод вызывается, когда модель сообщает об изменениях
         private void OnDataChanged()
         {
             view.RedrawForm(model.GetAll());
