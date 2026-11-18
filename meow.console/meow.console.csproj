@@ -237,6 +237,10 @@
       <Project>{9c9acc3c-94f3-4fa2-a64d-41cb5cc58927}</Project>
       <Name>meow.core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Shared\Shared.csproj">
+      <Project>{6cfbcb1b-1b2c-4353-9521-4af5c6106529}</Project>
+      <Name>Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets')" />
