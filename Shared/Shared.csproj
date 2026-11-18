@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="ICatModel.cs" />
     <Compile Include="ICatView.cs" />
-    <Compile Include="Models\Cat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

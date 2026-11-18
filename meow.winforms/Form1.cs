@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Shared;
-using Shared.Models;
+using meow.core.Models;
 
 namespace meow.winforms
 {
@@ -102,10 +102,11 @@ namespace meow.winforms
         /// <summary>
         /// обновить таблицу
         /// </summary>
-        public void RedrawForm(IEnumerable<Cat> data)
+        public void RedrawForm(IEnumerable<object> data)
         {
             dataGridView1.DataSource = null;
-            dataGridView1.DataSource = data.ToList();
+            // Приводим object обратно к Cat
+            dataGridView1.DataSource = data.Cast<Cat>().ToList();
         }
         ///// <summary>
         ///// очистить поля ввывода

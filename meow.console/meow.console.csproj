@@ -217,6 +217,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleView.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -225,18 +226,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
-      <Project>{8eb73fdb-2d49-4cff-930d-de31a6b7dab1}</Project>
-      <Name>DataAccessLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\meow.core.interfaces\meow.core.interfaces.csproj">
-      <Project>{e42a58ad-6996-4cf5-813e-ee7ccb0f98b8}</Project>
-      <Name>meow.core.interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\meow.core\meow.core.csproj">
-      <Project>{9c9acc3c-94f3-4fa2-a64d-41cb5cc58927}</Project>
-      <Name>meow.core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Shared\Shared.csproj">
       <Project>{6cfbcb1b-1b2c-4353-9521-4af5c6106529}</Project>
       <Name>Shared</Name>

@@ -1,6 +1,6 @@
 ﻿using meow.core.interfaces;
 
-namespace Shared.Models
+namespace meow.core.Models
 {
     public class Cat: IDomainObject
     {
@@ -12,7 +12,15 @@ namespace Shared.Models
         public string Color { get; set; }
 
         public Cat() { }
-
+        /// <summary>
+        /// Создает экземпляр кота с указанными характеристиками
+        /// </summary>
+        /// <param name="id">Номер</param>
+        /// <param name="name">Кличка</param>
+        /// <param name="breed">Парода</param>
+        /// <param name="age">Возраст</param>
+        /// <param name="weight">Вес</param>
+        /// <param name="color">Расцветка</param>
         public Cat(int id, string name, string breed, int age, double weight, string color)
         {
             Id = id;

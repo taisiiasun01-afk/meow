@@ -1,4 +1,4 @@
-﻿using Shared.Models;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,34 +25,34 @@ namespace meow.core.interfaces.Interfaces
         /// Получить список всех котов.
         /// </summary>
         /// <returns>Список объектов Cat. Если котов нет — пустой список.</returns>
-        List<Cat> GetAllCats();
+        List<object> GetAllCats();
         /// <summary>
         /// Получить кота по его идентификатору.
         /// </summary>
         /// <param name="id">Идентификатор кота.</param>
         /// <returns>Объект Cat или null, если кот не найден.</returns>
-        Cat GetCatById(int id);
+        object GetCatById(int id);
         /// <summary>
         /// Обновить данные существующего кота.
         /// </summary>
         /// <param name="cat">Объект Cat с обновлёнными данными.</param>
-        void UpdateCat(Cat cat);
+        void UpdateCat(object cat);
         /// <summary>
         /// Удалить кота из базы данных.
         /// </summary>
         /// <param name="obj">Объект Cat, который нужно удалить.</param>
-        void DeleteCat(Cat obj);
+        void DeleteCat(object obj);
         /// <summary>
         /// Сгруппировать всех котов по породе.
         /// </summary>
         /// <returns>Словарь, где ключ — название породы, значение — список котов этой породы.</returns>
 
-        Dictionary<string, List<Cat>> GroupByBreed();
+        Dictionary<string, List<object>> GroupByBreed();
         /// <summary>
         /// Получить котов, вес которых больше указанного значения.
         /// </summary>
         /// <param name="minWeight">Минимальный вес в килограммах.</param>
         /// <returns>Список котов, отсортированный по убыванию веса.</returns>
-        List<Cat> GetCatsHeavierThan(double minWeight);
+        List<object> GetCatsHeavierThan(double minWeight);
     }
 }

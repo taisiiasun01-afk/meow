@@ -1,9 +1,10 @@
-﻿using Shared.Models;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Shared
 {
@@ -24,8 +25,15 @@ namespace Shared
         double GetWeight();
         string GetColor();
         int GetSelectedId();
-
-        void RedrawForm(IEnumerable<Cat> data);
+        /// <summary>
+        /// Перерисовать форму
+        /// </summary>
+        /// <param name="data">Коллекция котов, которых нужно отобразить</param>
+        void RedrawForm(IEnumerable<object> data);
+        /// <summary>
+        /// Показать информационное сообщение пользователю
+        /// </summary>
+        /// <param name="message">текст сообщения</param>
         void ShowMessage(string message);
     }
 }

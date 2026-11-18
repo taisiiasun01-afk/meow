@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Shared;
-using Shared.Models;
 
 namespace Presenter
 {
@@ -35,15 +34,13 @@ namespace Presenter
         {
             try
             {
-                var cat = new Cat
-                {
-                    Name = view.GetName(),
-                    Breed = view.GetBreed(),
-                    Age = view.GetAge(),
-                    Weight = view.GetWeight(),
-                    Color = view.GetColor()
-                };
-                model.Insert(cat);
+                model.Insert(
+                    view.GetName(),
+                    view.GetBreed(),
+                    view.GetAge(),
+                    view.GetWeight(),
+                    view.GetColor()
+                );
             }
             catch (Exception ex)
             {
@@ -67,16 +64,14 @@ namespace Presenter
             int id = view.GetSelectedId();
             if (id > 0)
             {
-                var cat = new Cat
-                {
-                    Id = id,
-                    Name = view.GetName(),
-                    Breed = view.GetBreed(),
-                    Age = view.GetAge(),
-                    Weight = view.GetWeight(),
-                    Color = view.GetColor()
-                };
-                model.Update(cat);
+                model.Update(
+                   id,
+                   view.GetName(),
+                   view.GetBreed(),
+                   view.GetAge(),
+                   view.GetWeight(),
+                   view.GetColor()
+               );
             }
             else view.ShowMessage("Выбери кота для обновления!");
         }

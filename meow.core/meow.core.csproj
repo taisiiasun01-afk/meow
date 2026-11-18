@@ -46,7 +46,7 @@
   <ItemGroup>
     <Compile Include="Logic\CatLogic.cs" />
     <Compile Include="Logic\CatServise.cs" />
-    <Compile Include="Logic\ICatLogic.cs" />
+    <Compile Include="Models\Cat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -62,8 +62,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,7 +4,8 @@ using Presenter;
 using meow.core.Logic;
 using DataAccessLayer.EF;
 using Shared;
-using Shared.Models;
+using meow.core.Models;
+
 namespace meow.winforms
 {
     internal static class Program
