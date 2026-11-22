@@ -1,47 +1,184 @@
-﻿using meow.core.Models; 
+﻿
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
 using Shared;
-
 
 namespace meow.console
 {
-    /// <summary>
-    /// Консольное представление (View) для работы с котами
-    /// Реализует интерфейс ICatView для работы через Presenter
-    /// </summary>
     public class ConsoleView : ICatView
     {
-        public event Action AddCatEvent;
-        public event Action<int> DeleteCatEvent;
-        public event Action UpdateCatEvent;
+        public event EventHandler<CatInputEventArgs> AddCatRequested;
+        public event EventHandler<CatInputEventArgs> UpdateCatRequested;
+        public event EventHandler<CatIdEventArgs> DeleteCatRequested;
 
-        private string _name;
-        private string _breed;
-        private int _age;
-        private double _weight;
-        private string _color;
-        private int _selectedId;
+        public event EventHandler ShowAllCatsRequested;
+        public event EventHandler ShowBreedGroupsRequested;
+        public event EventHandler<CatWeightEventArgs> ShowHeavyCatsRequested;
 
-        public string GetName() => _name;
-        public string GetBreed() => _breed;
-        public int GetAge() => _age;
-        public double GetWeight() => _weight;
-        public string GetColor() => _color;
-        public int GetSelectedId() => _selectedId;
-        /// <summary>
-        /// Отобразить список котов в консоли и показать главное меню
-        /// </summary>
-        /// <param name="data">Коллекция объектов, которую нужно отобразить</param>
-        public void RedrawForm(IEnumerable<object> data)
+        public void Run()
         {
-            Console.Clear();
-            Console.WriteLine("=== СПИСОК КОТОВ ===");
-            var cats = data.Cast<Cat>().ToList();
-            if (cats.Count == 0)
+            bool running = true;
+
+            while (running)
+            {
+                Console.WriteLine();
+                Console.WriteLine("========== МЕНЮ ==========");
+                Console.WriteLine("1. Добавить кота");
+                Console.WriteLine("2. Обновить кота");
+                Console.WriteLine("3. Удалить кота");
+                Console.WriteLine("4. Показать всех котов");
+                Console.WriteLine("5. Группировка по породе");
+                Console.WriteLine("6. Найти котов тяжелее заданного веса");
+                Console.WriteLine("0. Выход");
+                Console.WriteLine("==========================");
+                Console.Write("Выберите действие: ");
+
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        AddCat();
+                        break;
+
+                    case "2":
+                        UpdateCat();
+                        break;
+
+                    case "3":
+                        DeleteCat();
+                        break;
+
+                    case "4":
+                        ShowAllCatsRequested?.Invoke(
+                            this, EventArgs.Empty);
+                        break;
+
+                    case "5":
+                        ShowBreedGroupsRequested?.Invoke(
+                            this, EventArgs.Empty);
+                        break;
+
+                    case "6":
+                        FindHeavyCats();
+                        break;
+
+                    case "0":
+                        running = false;
+                        Console.WriteLine("Программа завершена.");
+                        break;
+
+                    default:
+                        ShowError("Неверный пункт меню!");
+                        break;
+                }
+            }
+        }
+
+        private void AddCat()
+        {
+            Console.WriteLine("\n--- ДОБАВЛЕНИЕ КОТА ---");
+
+            var input = ReadCatInput(0);
+
+            if (input != null)
+                AddCatRequested?.Invoke(this, input);
+        }
+
+        private void UpdateCat()
+        {
+            Console.WriteLine("\n--- ОБНОВЛЕНИЕ КОТА ---");
+
+            int id = ReadId();
+
+            if (id <= 0)
+                return;
+
+            var input = ReadCatInput(id);
+
+            if (input != null)
+                UpdateCatRequested?.Invoke(this, input);
+        }
+
+        private void DeleteCat()
+        {
+            Console.WriteLine("\n--- УДАЛЕНИЕ КОТА ---");
+
+            int id = ReadId();
+
+            if (id > 0)
+            {
+                DeleteCatRequested?.Invoke(
+                    this,
+                    new CatIdEventArgs(id));
+            }
+        }
+
+        private void FindHeavyCats()
+        {
+            Console.Write("\nВведите минимальный вес: ");
+
+            if (!double.TryParse(
+                Console.ReadLine(),
+                NumberStyles.Float,
+                CultureInfo.CurrentCulture,
+                out double weight) || weight < 0)
+            {
+                ShowError("Некорректный вес!");
+                return;
+            }
+
+            ShowHeavyCatsRequested?.Invoke(
+                this,
+                new CatWeightEventArgs(weight));
+        }
+
+        private CatInputEventArgs ReadCatInput(int id)
+        {
+            Console.Write("Кличка: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Порода: ");
+            string breed = Console.ReadLine();
+
+            Console.Write("Возраст: ");
+            string age = Console.ReadLine();
+
+            Console.Write("Вес: ");
+            string weight = Console.ReadLine();
+
+            Console.Write("Окрас: ");
+            string color = Console.ReadLine();
+
+            return new CatInputEventArgs(
+                id,
+                name,
+                breed,
+                age,
+                weight,
+                color);
+        }
+
+        private int ReadId()
+        {
+            Console.Write("Введите Id кота: ");
+
+            if (!int.TryParse(Console.ReadLine(), out int id) || id <= 0)
+            {
+                ShowError("Некорректный Id!");
+                return 0;
+            }
+
+            return id;
+        }
+
+        public void ShowCats(IReadOnlyList<CatDto> cats)
+        {
+            Console.WriteLine();
+            Console.WriteLine("========== СПИСОК КОТОВ ==========");
+
+            if (cats == null || cats.Count == 0)
             {
                 Console.WriteLine("Котов нет.");
             }
@@ -52,61 +189,53 @@ namespace meow.console
                     Console.WriteLine(cat);
                 }
             }
-            Console.WriteLine("====================");
-            ShowMenu();
+
+            Console.WriteLine("==================================");
         }
-        /// <summary>
-        /// Показать информационное сообщение пользователю
-        /// </summary>
-        /// <param name="message">Текст сообщения</param>
+
+        public void ShowBreedGroups(
+            IReadOnlyList<BreedGroupDto> groups)
+        {
+            Console.WriteLine();
+            Console.WriteLine("======= ГРУППИРОВКА ПО ПОРОДЕ =======");
+
+            if (groups == null || groups.Count == 0)
+            {
+                Console.WriteLine("Нет данных.");
+                return;
+            }
+
+            foreach (var group in groups)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Порода: " + group.Breed);
+                Console.WriteLine("Количество: " + group.Count);
+
+                foreach (var cat in group.Cats)
+                {
+                    Console.WriteLine("  " + cat);
+                }
+            }
+
+            Console.WriteLine("====================================");
+        }
+
         public void ShowMessage(string message)
         {
-            Console.WriteLine($"[INFO] {message}");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\n[ИНФОРМАЦИЯ] " + message);
+            Console.ResetColor();
         }
-        /// <summary>
-        /// Показать главное меню и обработать выбор пользователя
-        /// Генерирует соответствующие события для Presenter
-        /// </summary>
-        private void ShowMenu()
-        {
-            Console.WriteLine("1. Добавить");
-            Console.WriteLine("2. Обновить");
-            Console.WriteLine("3. Удалить");
-            Console.WriteLine("0. Выход");
-            Console.Write("Выбор: ");
-            string choice = Console.ReadLine();
 
-            switch (choice)
-            {
-                case "1":
-                    Console.Write("Кличка: "); _name = Console.ReadLine();
-                    Console.Write("Порода: "); _breed = Console.ReadLine();
-                    Console.Write("Возраст: ");
-                    int.TryParse(Console.ReadLine(), out _age);
-                    Console.Write("Вес: "); double.TryParse(Console.ReadLine(), out _weight);
-                    Console.Write("Окрас: "); _color = Console.ReadLine();
-                    AddCatEvent?.Invoke();
-                    break;
-                case "2":
-                    Console.Write("Id кота: "); int.TryParse(Console.ReadLine(), out _selectedId);
-                    Console.Write("Новая кличка: "); _name = Console.ReadLine();
-                    Console.Write("Новая порода: "); _breed = Console.ReadLine();
-                    Console.Write("Новый возраст: "); int.TryParse(Console.ReadLine(), out _age);
-                    Console.Write("Новый вес: "); double.TryParse(Console.ReadLine(), out _weight);
-                    Console.Write("Новый окрас: "); _color = Console.ReadLine();
-                    UpdateCatEvent?.Invoke();
-                    break;
-                case "3":
-                    Console.Write("Id кота: "); int.TryParse(Console.ReadLine(), out _selectedId);
-                    DeleteCatEvent?.Invoke(_selectedId);
-                    break;
-                case "0":
-                    Environment.Exit(0);
-                    break;
-                default:
-                    Console.WriteLine("Неверный выбор!");
-                    break;
-            }
+        public void ShowError(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\n[ОШИБКА] " + message);
+            Console.ResetColor();
+        }
+
+        public void ClearFields()
+        {
         }
     }
 }

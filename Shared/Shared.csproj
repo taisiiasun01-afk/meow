@@ -41,15 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ICatModel.cs" />
+    <Compile Include="BreedGroupDto.cs" />
+    <Compile Include="CatDto.cs" />
+    <Compile Include="CatIdEventArgs.cs" />
+    <Compile Include="CatInputEventArgs.cs" />
     <Compile Include="ICatView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\meow.core.interfaces\meow.core.interfaces.csproj">
-      <Project>{e42a58ad-6996-4cf5-813e-ee7ccb0f98b8}</Project>
-      <Name>meow.core.interfaces</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

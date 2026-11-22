@@ -1,38 +1,54 @@
-﻿using System;
+﻿using Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
-using Shared;
-using meow.core.Models;
 
 namespace meow.winforms
 {
     public partial class Form1 : Form, ICatView
     {
-        public event Action AddCatEvent;
-        public event Action<int> DeleteCatEvent;
-        public event Action UpdateCatEvent;
+        public event EventHandler<CatInputEventArgs> AddCatRequested;
+        public event EventHandler<CatInputEventArgs> UpdateCatRequested;
+        public event EventHandler<CatIdEventArgs> DeleteCatRequested;
+
+        public event EventHandler ShowAllCatsRequested;
+        public event EventHandler ShowBreedGroupsRequested;
+        public event EventHandler<CatWeightEventArgs> ShowHeavyCatsRequested;
+
         public Form1()
         {
             InitializeComponent();
         }
 
-        public string GetName() => txtName.Text;
-        public string GetBreed() => txtBreed.Text;
-        public int GetAge() => int.TryParse(txtAge.Text, out int a) ? a : 0;
-        public double GetWeight() => double.TryParse(txtWeight.Text, out double w) ? w : 0;
-        public string GetColor() => txtColor.Text;
-        public int GetSelectedId()
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            ShowAllCatsRequested?.Invoke(this, EventArgs.Empty);
+        }
+
+        private int GetSelectedId()
         {
             if (dataGridView1.CurrentRow == null)
                 return 0;
 
-            var cat = dataGridView1.CurrentRow.DataBoundItem as Cat;
-            if (cat == null)
-                return 0;
+            var cat = dataGridView1.CurrentRow.DataBoundItem as CatDto;
 
-            return cat.Id;
+            return cat == null ? 0 : cat.Id;
         }
+
+        private CatInputEventArgs ReadInput()
+        {
+            return new CatInputEventArgs(
+                GetSelectedId(),
+                txtName.Text,
+                txtBreed.Text,
+                txtAge.Text,
+                txtWeight.Text,
+                txtColor.Text);
+        }
+
 
         /// <summary>
         /// кнопка добавить
@@ -41,10 +57,7 @@ namespace meow.winforms
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (AddCatEvent != null)
-            {
-                AddCatEvent();
-            }
+            AddCatRequested?.Invoke(this, ReadInput());
         }
         /// <summary>
         /// кнопка обновить
@@ -53,10 +66,7 @@ namespace meow.winforms
         /// <param name="e"></param>
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (UpdateCatEvent != null)
-            {
-                UpdateCatEvent();
-            }
+            UpdateCatRequested?.Invoke(this, ReadInput());
         }
         /// <summary>
         /// кнопка удалить
@@ -65,10 +75,9 @@ namespace meow.winforms
         /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (DeleteCatEvent != null)
-            {
-                DeleteCatEvent(GetSelectedId());
-            }
+            DeleteCatRequested?.Invoke(
+                            this,
+                            new CatIdEventArgs(GetSelectedId()));
         }
 
         /// <summary>
@@ -78,8 +87,7 @@ namespace meow.winforms
         /// <param name="e"></param>
         private void btnShowAll_Click(object sender, EventArgs e)
         {
-           
-
+            ShowAllCatsRequested?.Invoke(this, EventArgs.Empty);
         }
         /// <summary>
         /// кнопка группировка по породе
@@ -88,7 +96,7 @@ namespace meow.winforms
         /// <param name="e"></param>
         private void btnGroup_Click(object sender, EventArgs e)
         {
-            
+            ShowBreedGroupsRequested?.Invoke(this, EventArgs.Empty);
         }
         /// <summary>
         /// кнопка тяжелее чем n кг
@@ -97,46 +105,89 @@ namespace meow.winforms
         /// <param name="e"></param>
         private void btnHeavy_Click(object sender, EventArgs e)
         {
-            
+            if (!double.TryParse(
+                txtHeavyWeight.Text,
+                out double weight))
+            {
+                ShowError("Введите корректный вес!");
+                return;
+            }
+
+            ShowHeavyCatsRequested?.Invoke(
+                this,
+                new CatWeightEventArgs(weight));
         }
-        /// <summary>
-        /// обновить таблицу
-        /// </summary>
-        public void RedrawForm(IEnumerable<object> data)
+        public void ShowCats(IReadOnlyList<CatDto> cats)
         {
             dataGridView1.DataSource = null;
-            // Приводим object обратно к Cat
-            dataGridView1.DataSource = data.Cast<Cat>().ToList();
+            dataGridView1.DataSource = cats.ToList();
         }
-        ///// <summary>
-        ///// очистить поля ввывода
-        ///// </summary>
-        //private void ClearFields()
-        //{
-        //    txtName.Text = "";
-        //    txtBreed.Text = "";
-        //    txtAge.Text = "";
-        //    txtWeight.Text = "";
-        //    txtColor.Text = "";
-        //    txtHeavyWeight.Text = "";
-        //}
-        /// <summary>
-        /// загруска формы
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Form1_Load(object sender, EventArgs e)
+
+        public void ShowBreedGroups(
+            IReadOnlyList<BreedGroupDto> groups)
         {
-            
+            if (groups.Count == 0)
+            {
+                ShowMessage("Нет данных для группировки.");
+                return;
+            }
+
+            StringBuilder result = new StringBuilder();
+
+            foreach (var group in groups)
+            {
+                result.AppendLine("Порода: " + group.Breed);
+                result.AppendLine("Количество: " + group.Count);
+
+                foreach (var cat in group.Cats)
+                {
+                    result.AppendLine("  " + cat.ToString());
+                }
+
+                result.AppendLine();
+            }
+
+            MessageBox.Show(
+                this,
+                result.ToString(),
+                "Группировка котов по породам",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
-        /// <summary>
-        /// добавление исходных котов
-        /// </summary>
-        
+
         public void ShowMessage(string message)
         {
-            MessageBox.Show(message);
+            MessageBox.Show(
+                this,
+                message,
+                "Информация",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
-    }
 
+        public void ShowError(string message)
+        {
+            MessageBox.Show(
+                this,
+                message,
+                "Ошибка",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning);
+        }
+
+        public void ClearFields()
+        {
+            txtName.Clear();
+            txtBreed.Clear();
+            txtAge.Clear();
+            txtWeight.Clear();
+            txtColor.Clear();
+        }
+
+
+    }
 }
+
+
+
+

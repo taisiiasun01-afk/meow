@@ -1,9 +1,9 @@
 ﻿using DataAccessLayer.EF;
 using meow.core.interfaces;
-using meow.core.interfaces.Interfaces;
 using meow.core.Logic;
-using Shared.Models;
 using Ninject.Modules;
+using meow.core.Models;
+using meow.core.Interfaces;
 
 namespace DataAccessLayer 
 {

@@ -1,4 +1,4 @@
-﻿using Shared.Models;
+﻿using meow.core.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,6 +15,12 @@ namespace DataAccessLayer.EF
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(DatabaseSettings.ConnectionString);
+
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(
+                    DatabaseSettings.ConnectionString);
+            }
         }
     }
 }

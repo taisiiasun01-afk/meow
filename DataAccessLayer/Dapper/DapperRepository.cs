@@ -1,9 +1,9 @@
 ﻿using Dapper;
 using meow.core.interfaces;
-using Shared.Models;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using meow.core.Models;
 
 namespace DataAccessLayer.Dapper
 {
