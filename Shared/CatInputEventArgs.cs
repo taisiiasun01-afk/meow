@@ -33,13 +33,7 @@ namespace Shared
         /// </summary>
         public int Id { get; private set; }
 
-        public CatInputEventArgs(
-            int id,
-            string name,
-            string breed,
-            string age,
-            string weight,
-            string color)
+        public CatInputEventArgs(int id, string name, string breed, string age, string weight, string color)
         {
             Id = id;
             Name = name;

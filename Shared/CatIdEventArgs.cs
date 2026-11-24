@@ -11,7 +11,7 @@ namespace Shared
     /// </summary>
     public class CatIdEventArgs : EventArgs
     {
-        public int Id { get; private set; }
+        public int Id { get;  set; }
 
         public CatIdEventArgs(int id)
         {
@@ -23,7 +23,7 @@ namespace Shared
     /// </summary>
     public class CatWeightEventArgs : EventArgs
     {
-        public double Weight { get; private set; }
+        public double Weight { get;  set; }
 
         public CatWeightEventArgs(double weight)
         {

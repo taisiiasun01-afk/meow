@@ -20,8 +20,6 @@ namespace DataAccessLayer.EF
         /// <param name="optionsBuilder">построитель параметров контекста</param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(DatabaseSettings.ConnectionString);
-
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(

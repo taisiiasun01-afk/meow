@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F4A44ED3-F3B0-43AA-A7EF-D225BAA68C8B}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Presenter</RootNamespace>
     <AssemblyName>Presenter</AssemblyName>
@@ -30,6 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,12 +46,17 @@
   <ItemGroup>
     <Compile Include="CatPresenter.cs" />
     <Compile Include="CatProgram.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
       <Project>{8eb73fdb-2d49-4cff-930d-de31a6b7dab1}</Project>
       <Name>DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\meow.console\meow.console.csproj">
+      <Project>{0387ae96-5e51-445e-b8ad-9479116afc4b}</Project>
+      <Name>meow.console</Name>
     </ProjectReference>
     <ProjectReference Include="..\meow.core.interfaces\meow.core.interfaces.csproj">
       <Project>{e42a58ad-6996-4cf5-813e-ee7ccb0f98b8}</Project>
@@ -57,6 +65,10 @@
     <ProjectReference Include="..\meow.core\meow.core.csproj">
       <Project>{9c9acc3c-94f3-4fa2-a64d-41cb5cc58927}</Project>
       <Name>meow.core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\meow.winforms\meow.winforms.csproj">
+      <Project>{5f9bfbe8-2d2c-4a6a-b42d-a6eae999d8b5}</Project>
+      <Name>meow.winforms</Name>
     </ProjectReference>
     <ProjectReference Include="..\Shared\Shared.csproj">
       <Project>{6cfbcb1b-1b2c-4353-9521-4af5c6106529}</Project>

@@ -11,7 +11,7 @@ namespace Presenter
     public static class CatProgram
     {
         /// <summary>
-        /// Создает Presenter, связывая View и Mode
+        /// Создает Presenter, связывая View и Model
         /// </summary>
         /// <param name="view">Реализация View</param>
         /// <returns>Готовый Presenter</returns>

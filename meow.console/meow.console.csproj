@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0387AE96-5E51-445E-B8AD-9479116AFC4B}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>meow.console</RootNamespace>
     <AssemblyName>meow.console</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -33,6 +33,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Azure.Core, Version=1.38.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
@@ -218,7 +221,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleView.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="ConsoleViewStarter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -226,10 +229,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Presenter\Presenter.csproj">
-      <Project>{f4a44ed3-f3b0-43aa-a7ef-d225baa68c8b}</Project>
-      <Name>Presenter</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Shared\Shared.csproj">
       <Project>{6cfbcb1b-1b2c-4353-9521-4af5c6106529}</Project>
       <Name>Shared</Name>

@@ -12,6 +12,6 @@ namespace DataAccessLayer
         /// строка подключения к бд
         /// </summary>
         public const string ConnectionString =
-            @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CatsDatabase.mdf;Integrated Security=True;TrustServerCertificate=True";
+            @"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=CatsDatabase;Integrated Security=True;Encrypt=True";
     }
 }

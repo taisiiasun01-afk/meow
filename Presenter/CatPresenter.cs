@@ -24,11 +24,9 @@ namespace Presenter
         /// <exception cref="ArgumentNullException"></exception>
         public CatPresenter(ICatView view, ICatLogic model)
         {
-            this.view = view ??
-                throw new ArgumentNullException(nameof(view));
+            this.view = view ?? throw new ArgumentNullException(nameof(view));
 
-            this.model = model ??
-                throw new ArgumentNullException(nameof(model));
+            this.model = model ?? throw new ArgumentNullException(nameof(model));
 
             view.AddCatRequested += OnAddCat;
             view.UpdateCatRequested += OnUpdateCat;
@@ -47,9 +45,7 @@ namespace Presenter
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnAddCat(
-            object sender,
-            CatInputEventArgs e)
+        private void OnAddCat(object sender,CatInputEventArgs e)
         {
             try
             {
@@ -72,13 +68,11 @@ namespace Presenter
             }
         }
         /// <summary>
-        /// Обработчик добавления кота
+        /// Обработчик обновления кота
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnUpdateCat(
-            object sender,
-            CatInputEventArgs e)
+        private void OnUpdateCat(object sender, CatInputEventArgs e)
         {
             try
             {
@@ -116,9 +110,7 @@ namespace Presenter
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnDeleteCat(
-            object sender,
-            CatIdEventArgs e)
+        private void OnDeleteCat(object sender, CatIdEventArgs e)
         {
             try
             {
@@ -172,9 +164,7 @@ namespace Presenter
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnShowHeavyCats(
-            object sender,
-            CatWeightEventArgs e)
+        private void OnShowHeavyCats(object sender, CatWeightEventArgs e)
         {
             try
             {
@@ -209,10 +199,7 @@ namespace Presenter
         /// <param name="age">возраст</param>
         /// <param name="weight">вес</param>
         /// <returns>true, если данные корректны; иначе false</returns>
-        private bool Validate(
-            CatInputEventArgs e,
-            out int age,
-            out double weight)
+        private bool Validate(CatInputEventArgs e, out int age, out double weight)
         {
             age = 0;
             weight = 0;
