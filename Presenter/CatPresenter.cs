@@ -8,9 +8,20 @@ namespace Presenter
 {
     public class CatPresenter
     {
+        /// <summary>
+        /// Представление View
+        /// </summary>
         private readonly ICatView view;
+        /// <summary>
+        /// Модель бизнес-логики
+        /// </summary>
         private readonly ICatLogic model;
-
+        /// <summary>
+        /// Инициализирует презентер
+        /// </summary>
+        /// <param name="view">Представление</param>
+        /// <param name="model">Модель бизнес-логики</param>
+        /// <exception cref="ArgumentNullException"></exception>
         public CatPresenter(ICatView view, ICatLogic model)
         {
             this.view = view ??
@@ -31,7 +42,11 @@ namespace Presenter
 
             RefreshView();
         }
-
+        /// <summary>
+        /// Обработчик добавления кота
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnAddCat(
             object sender,
             CatInputEventArgs e)
@@ -56,7 +71,11 @@ namespace Presenter
                 view.ShowError(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Обработчик добавления кота
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnUpdateCat(
             object sender,
             CatInputEventArgs e)
@@ -92,7 +111,11 @@ namespace Presenter
                 view.ShowError(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Обработчик удаления кота
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnDeleteCat(
             object sender,
             CatIdEventArgs e)
@@ -119,12 +142,20 @@ namespace Presenter
                 view.ShowError(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Обработчик запроса на отображение всех котов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnShowAllCats(object sender, EventArgs e)
         {
             RefreshView();
         }
-
+        /// <summary>
+        /// Обработчик запроса на отображение котов, сгруппированных по породам
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnShowBreedGroups(object sender, EventArgs e)
         {
             try
@@ -136,7 +167,11 @@ namespace Presenter
                 view.ShowError(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Обработчик запроса на отображение котов тяжелее заданного веса
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnShowHeavyCats(
             object sender,
             CatWeightEventArgs e)
@@ -150,17 +185,30 @@ namespace Presenter
                 view.ShowError(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Обработчик изменения данных в модели
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnDataChanged(object sender, EventArgs e)
         {
             RefreshView();
         }
-
+        /// <summary>
+        /// Обновляет представление, загружая полный список котов из модели
+        /// </summary>
         private void RefreshView()
         {
             view.ShowCats(model.GetAllCats());
         }
-
+        /// <summary>
+        /// Валидирует входные данные формы кота.
+        /// Проверяет: непустые текстовые поля, корректный неотрицательный возраст и положительный вес.
+        /// </summary>
+        /// <param name="e">данные из формы</param>
+        /// <param name="age">возраст</param>
+        /// <param name="weight">вес</param>
+        /// <returns>true, если данные корректны; иначе false</returns>
         private bool Validate(
             CatInputEventArgs e,
             out int age,

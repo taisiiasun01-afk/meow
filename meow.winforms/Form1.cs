@@ -9,25 +9,48 @@ namespace meow.winforms
 {
     public partial class Form1 : Form, ICatView
     {
+        /// <summary>
+        /// пользователь запросил добавление нового кота
+        /// </summary>
         public event EventHandler<CatInputEventArgs> AddCatRequested;
+        /// <summary>
+        /// пользователь запросил обновление данных кота
+        /// </summary>
         public event EventHandler<CatInputEventArgs> UpdateCatRequested;
+        /// <summary>
+        /// пользователь запросил удаление кота по Id
+        /// </summary>
         public event EventHandler<CatIdEventArgs> DeleteCatRequested;
-
+        /// <summary>
+        /// пользователь запросил отображение всех котов
+        /// </summary>
         public event EventHandler ShowAllCatsRequested;
+        /// <summary>
+        /// пользователь запросил группировку котов по породе
+        /// </summary>
         public event EventHandler ShowBreedGroupsRequested;
+        /// <summary>
+        /// пользователь запросил поиск котов тяжелее указанного веса
+        /// </summary>
         public event EventHandler<CatWeightEventArgs> ShowHeavyCatsRequested;
 
         public Form1()
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Генерирует событие для загрузки всех котов
+        /// </summary>
+        /// <param name="e">Аргументы события</param>
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
             ShowAllCatsRequested?.Invoke(this, EventArgs.Empty);
         }
-
+        /// <summary>
+        /// Получить Id кота, выбранного в таблице
+        /// </summary>
+        /// <returns>Id кота</returns>
         private int GetSelectedId()
         {
             if (dataGridView1.CurrentRow == null)
@@ -37,7 +60,10 @@ namespace meow.winforms
 
             return cat == null ? 0 : cat.Id;
         }
-
+        /// <summary>
+        /// Собрать данные из полей ввода в объект
+        /// </summary>
+        /// <returns>Объект с данными кота</returns>
         private CatInputEventArgs ReadInput()
         {
             return new CatInputEventArgs(
@@ -48,8 +74,6 @@ namespace meow.winforms
                 txtWeight.Text,
                 txtColor.Text);
         }
-
-
         /// <summary>
         /// кнопка добавить
         /// </summary>
@@ -117,12 +141,19 @@ namespace meow.winforms
                 this,
                 new CatWeightEventArgs(weight));
         }
+        /// <summary>
+        /// Отображает список котов в таблице
+        /// </summary>
+        /// <param name="cats">список котов</param>
         public void ShowCats(IReadOnlyList<CatDto> cats)
         {
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = cats.ToList();
         }
-
+        /// <summary>
+        /// Отображает сгруппированный по породам список котов в окне сообщения
+        /// </summary>
+        /// <param name="groups">список</param>
         public void ShowBreedGroups(
             IReadOnlyList<BreedGroupDto> groups)
         {
@@ -154,7 +185,10 @@ namespace meow.winforms
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
-
+        /// <summary>
+        /// Отображает информационное сообщение
+        /// </summary>
+        /// <param name="message">текст сообщения</param>
         public void ShowMessage(string message)
         {
             MessageBox.Show(
@@ -164,7 +198,10 @@ namespace meow.winforms
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
-
+        /// <summary>
+        /// Отображает сообщение об ошибке
+        /// </summary>
+        /// <param name="message">текст ошибки</param>
         public void ShowError(string message)
         {
             MessageBox.Show(
@@ -174,7 +211,9 @@ namespace meow.winforms
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Warning);
         }
-
+        /// <summary>
+        /// Очищает поля ввода
+        /// </summary>
         public void ClearFields()
         {
             txtName.Clear();
@@ -184,7 +223,10 @@ namespace meow.winforms
             txtColor.Clear();
         }
 
+        private void txtColor_TextChanged(object sender, EventArgs e)
+        {
 
+        }
     }
 }
 

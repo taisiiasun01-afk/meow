@@ -13,19 +13,29 @@ namespace meow.core.interfaces
     /// <typeparam name="T">Тип сущности (например, Cat).</typeparam>
     public interface IRepository<T> where T : IDomainObject, new()
     {
-        /// <summary>Создать новую сущность в БД.</summary>
+        /// <summary>
+        /// Создать новую сущность в БД.
+        /// </summary>
         void Create(T obj);
 
-        /// <summary>Получить все сущности.</summary>
+        /// <summary>
+        /// Получить все сущности.
+        /// </summary>
         IEnumerable<T> ReadAll();
 
-        /// <summary>Получить сущность по Id.</summary>
+        /// <summary>
+        /// Получить сущность по Id.
+        /// </summary>
         T ReadById(int id);
 
-        /// <summary>Обновить сущность.</summary>
+        /// <summary>
+        /// Обновить сущность.
+        /// </summary>
         void Update(T obj);
 
-        /// <summary>Удалить сущность</summary>
+        /// <summary>
+        /// Удалить сущность
+        /// </summary>
         void Delete(T obj);
     }
 }

@@ -8,6 +8,9 @@ namespace DataAccessLayer
 {
     public static class DatabaseSettings
     {
+        /// <summary>
+        /// строка подключения к бд
+        /// </summary>
         public const string ConnectionString =
             @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CatsDatabase.mdf;Integrated Security=True;TrustServerCertificate=True";
     }

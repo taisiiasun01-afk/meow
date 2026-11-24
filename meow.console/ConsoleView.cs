@@ -8,14 +8,33 @@ namespace meow.console
 {
     public class ConsoleView : ICatView
     {
+        /// <summary>
+        /// пользователь запросил добавление нового кота
+        /// </summary>
         public event EventHandler<CatInputEventArgs> AddCatRequested;
+        /// <summary>
+        /// пользователь запросил обновление данных кота
+        /// </summary>
         public event EventHandler<CatInputEventArgs> UpdateCatRequested;
+        /// <summary>
+        /// пользователь запросил удаление кота по Id
+        /// </summary>
         public event EventHandler<CatIdEventArgs> DeleteCatRequested;
-
+        /// <summary>
+        /// пользователь запросил отображение всех котов
+        /// </summary>
         public event EventHandler ShowAllCatsRequested;
+        /// <summary>
+        /// пользователь запросил группировку котов по породе
+        /// </summary>
         public event EventHandler ShowBreedGroupsRequested;
+        /// <summary>
+        /// пользователь запросил поиск котов тяжелее указанного веса
+        /// </summary>
         public event EventHandler<CatWeightEventArgs> ShowHeavyCatsRequested;
-
+        /// <summary>
+        /// работа консоли
+        /// </summary>
         public void Run()
         {
             bool running = true;
@@ -75,7 +94,9 @@ namespace meow.console
                 }
             }
         }
-
+        /// <summary>
+        /// Запрашивает у пользователя данные для добавления кота и генерирует событие
+        /// </summary>
         private void AddCat()
         {
             Console.WriteLine("\n--- ДОБАВЛЕНИЕ КОТА ---");
@@ -85,7 +106,9 @@ namespace meow.console
             if (input != null)
                 AddCatRequested?.Invoke(this, input);
         }
-
+        /// <summary>
+        /// Запрашивает Id и новые данные кота, генерирует событие обновления
+        /// </summary>
         private void UpdateCat()
         {
             Console.WriteLine("\n--- ОБНОВЛЕНИЕ КОТА ---");
@@ -100,7 +123,9 @@ namespace meow.console
             if (input != null)
                 UpdateCatRequested?.Invoke(this, input);
         }
-
+        /// <summary>
+        /// Запрашивает Id кота и генерирует событие удаления
+        /// </summary>
         private void DeleteCat()
         {
             Console.WriteLine("\n--- УДАЛЕНИЕ КОТА ---");
@@ -114,7 +139,9 @@ namespace meow.console
                     new CatIdEventArgs(id));
             }
         }
-
+        /// <summary>
+        /// Запрашивает минимальный вес и генерирует событие поиска тяжелых котов
+        /// </summary>
         private void FindHeavyCats()
         {
             Console.Write("\nВведите минимальный вес: ");
@@ -133,7 +160,11 @@ namespace meow.console
                 this,
                 new CatWeightEventArgs(weight));
         }
-
+        /// <summary>
+        /// Читает с консоли данные о коте для добавления или обновления
+        /// </summary>
+        /// <param name="id">айди</param>
+        /// <returns>объект с введенными данными</returns>
         private CatInputEventArgs ReadCatInput(int id)
         {
             Console.Write("Кличка: ");
@@ -159,7 +190,10 @@ namespace meow.console
                 weight,
                 color);
         }
-
+        /// <summary>
+        /// Читает Id кота с консоли и проверяет его корректность
+        /// </summary>
+        /// <returns>Введенный Id</returns>
         private int ReadId()
         {
             Console.Write("Введите Id кота: ");
@@ -172,7 +206,10 @@ namespace meow.console
 
             return id;
         }
-
+        /// <summary>
+        /// Отображает список котов в консоли
+        /// </summary>
+        /// <param name="cats">список котов</param>
         public void ShowCats(IReadOnlyList<CatDto> cats)
         {
             Console.WriteLine();
@@ -192,7 +229,10 @@ namespace meow.console
 
             Console.WriteLine("==================================");
         }
-
+        /// <summary>
+        /// Отображает сгруппированный по породам список котов
+        /// </summary>
+        /// <param name="groups">список групп</param>
         public void ShowBreedGroups(
             IReadOnlyList<BreedGroupDto> groups)
         {
@@ -219,21 +259,29 @@ namespace meow.console
 
             Console.WriteLine("====================================");
         }
-
+        /// <summary>
+        /// Отображает информационное сообщение
+        /// </summary>
+        /// <param name="message">текст сообщения</param>
         public void ShowMessage(string message)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\n[ИНФОРМАЦИЯ] " + message);
             Console.ResetColor();
         }
-
+        /// <summary>
+        /// Отображает сообщение об ошибке
+        /// </summary>
+        /// <param name="message">текст ошибки</param>
         public void ShowError(string message)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("\n[ОШИБКА] " + message);
             Console.ResetColor();
         }
-
+        /// <summary>
+        /// Очищает поля ввода
+        /// </summary>
         public void ClearFields()
         {
         }

@@ -9,12 +9,21 @@ namespace DataAccessLayer.Dapper
 {
     public class CatDapperRepository : IRepository<Cat>
     {
+        /// <summary>
+        /// строка подключения к бд
+        /// </summary>
         private readonly string connectionString;
-
+        /// <summary>
+        /// создает репозиторий с настройками подключения по умолчанию
+        /// </summary>
         public CatDapperRepository()
         {
             this.connectionString = DatabaseSettings.ConnectionString;
         }
+        /// <summary>
+        /// создать нового кода в бд
+        /// </summary>
+        /// <param name="obj">кот которого нужно добавить</param>
         public void Create(Cat obj)
         {
             using (var connection = new SqlConnection(connectionString))
@@ -24,7 +33,10 @@ namespace DataAccessLayer.Dapper
                 connection.Execute(sql, obj);
             }
         }
-
+        /// <summary>
+        /// получить всех котов из бд
+        /// </summary>
+        /// <returns>список котов</returns>
         public IEnumerable<Cat> ReadAll()
         {
             using (var connection = new SqlConnection(connectionString))
@@ -32,7 +44,11 @@ namespace DataAccessLayer.Dapper
                 return connection.Query<Cat>("SELECT * FROM Cats").ToList();
             }
         }
-
+        /// <summary>
+        /// получить кота по айди
+        /// </summary>
+        /// <param name="id">номер кота</param>
+        /// <returns>аота</returns>
         public Cat ReadById(int id)
         {
             using (var connection = new SqlConnection(connectionString))
@@ -41,7 +57,10 @@ namespace DataAccessLayer.Dapper
                     "SELECT * FROM Cats WHERE Id = @Id", new { Id = id });
             }
         }
-
+        /// <summary>
+        /// обновить кота в бд
+        /// </summary>
+        /// <param name="obj">кот</param>
         public void Update(Cat obj)
         {
             using (var connection = new SqlConnection(connectionString))
@@ -51,7 +70,10 @@ namespace DataAccessLayer.Dapper
                 connection.Execute(sql, obj);
             }
         }
-
+        /// <summary>
+        /// удалить кота из бд
+        /// </summary>
+        /// <param name="obj">кот</param>
         public void Delete(Cat obj)
         {
             using (var connection = new SqlConnection(connectionString))

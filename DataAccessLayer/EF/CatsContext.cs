@@ -10,8 +10,14 @@ namespace DataAccessLayer.EF
 {
     public class CatsContext : DbContext
     {
+        /// <summary>
+        /// Таблица котов в бд
+        /// </summary>
         public DbSet<Cat> Cats { get; set; }
-
+        /// <summary>
+        /// настраивает подключение к бд
+        /// </summary>
+        /// <param name="optionsBuilder">построитель параметров контекста</param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(DatabaseSettings.ConnectionString);

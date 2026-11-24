@@ -10,8 +10,13 @@ namespace meow.core.Logic
 {
     public class CatLogic : ICatLogic
     {
+        /// <summary>
+        /// сервис для доступа к данным
+        /// </summary>
         private readonly CatService catService;
-
+        /// <summary>
+        /// Событие, сообщающее об изменении данных
+        /// </summary>
         public event EventHandler DataChanged;
 
         public CatLogic(CatService catService)
@@ -19,7 +24,14 @@ namespace meow.core.Logic
             this.catService = catService ??
                 throw new ArgumentNullException(nameof(catService));
         }
-
+        /// <summary>
+        /// добавить нового кота
+        /// </summary>
+        /// <param name="name">кличка</param>
+        /// <param name="breed">порода</param>
+        /// <param name="age">возраст</param>
+        /// <param name="weight">вес</param>
+        /// <param name="color">окрас</param>
         public void AddCat(
             string name,
             string breed,
@@ -30,7 +42,15 @@ namespace meow.core.Logic
             catService.AddCat(name, breed, age, weight, color);
             OnDataChanged();
         }
-
+        /// <summary>
+        /// обновить данные о коте
+        /// </summary>
+        /// <param name="name">кличка</param>
+        /// <param name="breed">порода</param>
+        /// <param name="age">возраст</param>
+        /// <param name="weight">вес</param>
+        /// <param name="color">окрас</param>
+        /// <returns>true, если кот найден и обновлен; false, если кот не найден</returns>
         public bool UpdateCat(
             int id,
             string name,
@@ -55,7 +75,11 @@ namespace meow.core.Logic
 
             return true;
         }
-
+        /// <summary>
+        /// удалить кота из бд
+        /// </summary>
+        /// <param name="id">номер</param>
+        /// <returns>true, если кот найден и удален; false, если кот не найден</returns>
         public bool DeleteCat(int id)
         {
             Cat cat = catService.GetCatById(id);
@@ -68,14 +92,20 @@ namespace meow.core.Logic
 
             return true;
         }
-
+        /// <summary>
+        /// Получить список всех котов в виде DTO
+        /// </summary>
+        /// <returns>список</returns>
         public IReadOnlyList<CatDto> GetAllCats()
         {
             return catService.GetAllCats()
                 .Select(ToDto)
                 .ToList();
         }
-
+        /// <summary>
+        /// Сгруппировать всех котов по породе
+        /// </summary>
+        /// <returns>список</returns>
         public IReadOnlyList<BreedGroupDto> GroupByBreed()
         {
             return catService.GetAllCats()
@@ -88,7 +118,11 @@ namespace meow.core.Logic
                 .OrderBy(group => group.Breed)
                 .ToList();
         }
-
+        /// <summary>
+        /// Получить котов, вес которых больше указанного значения, в виде DTO
+        /// </summary>
+        /// <param name="minWeight">минимальный вес</param>
+        /// <returns>список</returns>
         public IReadOnlyList<CatDto> GetCatsHeavierThan(
             double minWeight)
         {
@@ -98,7 +132,11 @@ namespace meow.core.Logic
                 .Select(ToDto)
                 .ToList();
         }
-
+        /// <summary>
+        /// Преобразует доменную модель в DTO
+        /// </summary>
+        /// <param name="cat">Объект доменной модели</param>
+        /// <returns>Объект DTO</returns>
         private static CatDto ToDto(Cat cat)
         {
             return new CatDto
@@ -111,7 +149,9 @@ namespace meow.core.Logic
                 Color = cat.Color
             };
         }
-
+        /// <summary>
+        /// Вызывает событие, уведомляя подписчиков об изменении данных.
+        /// </summary>
         private void OnDataChanged()
         {
             DataChanged?.Invoke(this, EventArgs.Empty);

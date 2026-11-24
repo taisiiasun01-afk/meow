@@ -8,11 +8,29 @@ namespace Shared
 {
     public class CatInputEventArgs : EventArgs
     {
+        /// <summary>
+        /// кличка
+        /// </summary>
         public string Name { get; private set; }
+        /// <summary>
+        /// порода
+        /// </summary>
         public string Breed { get; private set; }
+        /// <summary>
+        /// возраст
+        /// </summary>
         public string Age { get; private set; }
+        /// <summary>
+        /// вес
+        /// </summary>
         public string Weight { get; private set; }
+        /// <summary>
+        /// окрас
+        /// </summary>
         public string Color { get; private set; }
+        /// <summary>
+        /// айди
+        /// </summary>
         public int Id { get; private set; }
 
         public CatInputEventArgs(

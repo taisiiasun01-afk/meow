@@ -9,6 +9,9 @@ namespace DataAccessLayer
 {
     public class SimpleConfigModule : NinjectModule
     {
+        /// <summary>
+        /// Загружает правила привязки в контейнер
+        /// </summary>
         public override void Load()
         {
             Bind<IRepository<Cat>>().To<EntityRepository<Cat>>().InSingletonScope();

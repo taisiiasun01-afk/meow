@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Shared
 {
+    /// <summary>
+    /// Аргументы события, содержащие идентификатор кота
+    /// </summary>
     public class CatIdEventArgs : EventArgs
     {
         public int Id { get; private set; }
@@ -15,7 +18,9 @@ namespace Shared
             Id = id;
         }
     }
-
+    /// <summary>
+    /// Аргументы события, содержащие значение веса
+    /// </summary>
     public class CatWeightEventArgs : EventArgs
     {
         public double Weight { get; private set; }

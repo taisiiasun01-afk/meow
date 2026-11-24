@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Shared
 {
+    /// <summary>
+    /// DTO (Data Transfer Object) для группы котов, объединённых по породе
+    /// </summary>
     public class BreedGroupDto
     {
         public string Breed { get; set; }
