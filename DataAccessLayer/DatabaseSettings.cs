@@ -12,6 +12,7 @@ namespace DataAccessLayer
         /// строка подключения к бд
         /// </summary>
         public const string ConnectionString =
-            @"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=CatsDatabase;Integrated Security=True;Encrypt=True";
+                @"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=CatsDatabase;Integrated Security=True;TrustServerCertificate=True";
     }
 }
+ 

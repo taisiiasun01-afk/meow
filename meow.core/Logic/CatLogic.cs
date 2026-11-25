@@ -21,8 +21,7 @@ namespace meow.core.Logic
 
         public CatLogic(CatService catService)
         {
-            this.catService = catService ??
-                throw new ArgumentNullException(nameof(catService));
+            this.catService = catService ?? throw new ArgumentNullException(nameof(catService));
         }
         /// <summary>
         /// добавить нового кота
@@ -51,13 +50,7 @@ namespace meow.core.Logic
         /// <param name="weight">вес</param>
         /// <param name="color">окрас</param>
         /// <returns>true, если кот найден и обновлен; false, если кот не найден</returns>
-        public bool UpdateCat(
-            int id,
-            string name,
-            string breed,
-            int age,
-            double weight,
-            string color)
+        public bool UpdateCat(int id, string name, string breed, int age, double weight, string color)
         {
             Cat cat = catService.GetCatById(id);
 

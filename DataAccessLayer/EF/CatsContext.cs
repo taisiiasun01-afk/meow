@@ -22,8 +22,7 @@ namespace DataAccessLayer.EF
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(
-                    DatabaseSettings.ConnectionString);
+                optionsBuilder.UseSqlServer(DatabaseSettings.ConnectionString);
             }
         }
     }

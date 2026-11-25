@@ -11,7 +11,7 @@ namespace meow.core.interfaces
     /// Определяет CRUD-операции для любой сущности.
     /// </summary>
     /// <typeparam name="T">Тип сущности (например, Cat).</typeparam>
-    public interface IRepository<T> where T : IDomainObject, new()
+    public interface IRepository<T> where T :class, IDomainObject
     {
         /// <summary>
         /// Создать новую сущность в БД.
