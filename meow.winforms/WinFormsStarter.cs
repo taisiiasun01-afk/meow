@@ -13,6 +13,7 @@ namespace meow.winforms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+        }
 
 
           /// <summary>
