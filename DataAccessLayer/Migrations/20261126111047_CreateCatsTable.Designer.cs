@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(CatsContext))]
-    [Migration("20261125043143_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20261126111047_CreateCatsTable")]
+    partial class CreateCatsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -240,9 +240,9 @@
     <Compile Include="DatabaseSettings.cs" />
     <Compile Include="EF\CatsContext.cs" />
     <Compile Include="EF\EntityRepository.cs" />
-    <Compile Include="Migrations\20261125043143_InitialCreate.cs" />
-    <Compile Include="Migrations\20261125043143_InitialCreate.Designer.cs">
-      <DependentUpon>20261125043143_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\20261126111047_CreateCatsTable.cs" />
+    <Compile Include="Migrations\20261126111047_CreateCatsTable.Designer.cs">
+      <DependentUpon>20261126111047_CreateCatsTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\CatsContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

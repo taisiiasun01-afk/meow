@@ -2,7 +2,7 @@
 
 namespace DataAccessLayer.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class CreateCatsTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

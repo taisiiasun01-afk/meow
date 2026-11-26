@@ -14,8 +14,7 @@ namespace meow.winforms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
         }
-
-        }
+        
           /// <summary>
           /// Создаёт главную форму.
           /// </summary>
